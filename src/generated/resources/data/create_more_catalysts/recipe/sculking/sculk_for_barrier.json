@@ -1,0 +1,14 @@
+{
+  "type": "create_more_catalysts:sculking",
+  "ingredients": [
+    {
+      "tag": "c:gems/amethyst"
+    }
+  ],
+  "results": [
+    {
+      "chance": 0.75,
+      "id": "minecraft:sculk"
+    }
+  ]
+}

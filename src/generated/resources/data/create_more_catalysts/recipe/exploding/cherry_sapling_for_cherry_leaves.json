@@ -1,0 +1,14 @@
+{
+  "type": "create_more_catalysts:exploding",
+  "ingredients": [
+    {
+      "item": "minecraft:cherry_leaves"
+    }
+  ],
+  "results": [
+    {
+      "chance": 0.25,
+      "id": "minecraft:cherry_sapling"
+    }
+  ]
+}

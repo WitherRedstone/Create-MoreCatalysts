@@ -1,0 +1,9 @@
+{
+  "values": [
+    "create:flowing_chocolate",
+    {
+      "id": "#c:chocolate",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "create_more_catalysts:exploding",
+  "ingredients": [
+    {
+      "item": "minecraft:mangrove_leaves"
+    }
+  ],
+  "results": [
+    {
+      "chance": 0.25,
+      "id": "minecraft:mangrove_propagule"
+    }
+  ]
+}

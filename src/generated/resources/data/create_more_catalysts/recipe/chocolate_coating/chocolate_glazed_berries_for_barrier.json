@@ -1,0 +1,13 @@
+{
+  "type": "create_more_catalysts:chocolate_coating",
+  "ingredients": [
+    {
+      "tag": "c:foods/berry"
+    }
+  ],
+  "results": [
+    {
+      "id": "create:chocolate_glazed_berries"
+    }
+  ]
+}

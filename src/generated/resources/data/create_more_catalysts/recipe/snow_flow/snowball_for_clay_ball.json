@@ -1,0 +1,13 @@
+{
+  "type": "create_more_catalysts:snow_flow",
+  "ingredients": [
+    {
+      "item": "minecraft:clay_ball"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:snowball"
+    }
+  ]
+}

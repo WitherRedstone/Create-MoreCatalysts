@@ -1,0 +1,14 @@
+{
+  "type": "create_more_catalysts:breathed_wind",
+  "ingredients": [
+    {
+      "tag": "c:foods/berry"
+    }
+  ],
+  "results": [
+    {
+      "chance": 0.75,
+      "id": "minecraft:chorus_fruit"
+    }
+  ]
+}

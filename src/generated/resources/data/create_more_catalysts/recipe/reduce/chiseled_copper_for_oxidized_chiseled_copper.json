@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "type": "create_more_catalysts:reduce",
+  "ingredients": [
+    {
+      "item": "minecraft:oxidized_chiseled_copper"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:chiseled_copper"
+    }
+  ]
+}

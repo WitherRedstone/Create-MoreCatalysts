@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "type": "create_more_catalysts:etch",
+  "ingredients": [
+    {
+      "item": "minecraft:light_gray_glazed_terracotta"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:light_gray_concrete_powder"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "type": "create_more_catalysts:dehyd",
+  "ingredients": [
+    {
+      "item": "minecraft:kelp"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:dried_kelp"
+    }
+  ]
+}

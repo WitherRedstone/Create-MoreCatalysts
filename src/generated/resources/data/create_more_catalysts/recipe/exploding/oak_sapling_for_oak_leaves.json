@@ -1,0 +1,14 @@
+{
+  "type": "create_more_catalysts:exploding",
+  "ingredients": [
+    {
+      "item": "minecraft:oak_leaves"
+    }
+  ],
+  "results": [
+    {
+      "chance": 0.25,
+      "id": "minecraft:oak_sapling"
+    }
+  ]
+}

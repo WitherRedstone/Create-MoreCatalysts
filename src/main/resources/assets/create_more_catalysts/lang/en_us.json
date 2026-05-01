@@ -1,0 +1,108 @@
+{
+  "create_more_catalysts.recipe.fan_withering": "Batch Withering",
+  "create_more_catalysts.recipe.fan_snow_flow": "Batch Snow Flow",
+  "create_more_catalysts.recipe.fan_purifying": "Batch Purifying",
+  "create_more_catalysts.recipe.fan_sculking": "Batch Sculking",
+  "create_more_catalysts.recipe.fan_resonance": "Batch Resonance",
+  "create_more_catalysts.recipe.fan_sand_blow": "Batch Sand Blow",
+  "create_more_catalysts.recipe.fan_breathed_wind": "Batch Breathed Wind",
+  "create_more_catalysts.recipe.fan_exploding": "Batch Exploding",
+  "create_more_catalysts.recipe.fan_honey_coating": "Batch Honey Coating",
+  "create_more_catalysts.recipe.fan_chocolate_coating": "Batch Chocolate Coating",
+
+  "create_more_catalysts.recipe.fan_salout": "Batch Salout",
+  "create_more_catalysts.recipe.fan_etch": "Batch Etch",
+  "create_more_catalysts.recipe.fan_sulfon": "Batch Sulfon",
+  "create_more_catalysts.recipe.fan_dehyd": "Batch Dehyd",
+  "create_more_catalysts.recipe.fan_oxidize": "Batch Oxidize",
+  "create_more_catalysts.recipe.fan_reduce": "Batch Reduce",
+  "create_more_catalysts.recipe.fan_ferment": "Batch Ferment",
+
+  "create_more_catalysts.configuration.CoreCcontent": "Core Content",
+  "create_more_catalysts.configuration.WitheringFan": "Withering",
+  "create_more_catalysts.configuration.enableWitheringFan": "Enable Withering",
+  "create_more_catalysts.configuration.witheringEntityTransforms": "Withering Entity Transforms",
+  "create_more_catalysts.configuration.witheringHealEntities": "Withering Entity Heals",
+
+  "create_more_catalysts.configuration.SnowFlowFan": "Snow Flow",
+  "create_more_catalysts.configuration.enableSnowFlowFan": "Enable Snow Flow",
+  "create_more_catalysts.configuration.snowFlowEntityTransforms": "Snow Flow Entity Transforms",
+  "create_more_catalysts.configuration.snowFlowHealEntities": "Snow Flow Entity Heals",
+
+  "create_more_catalysts.configuration.PurifyingFan": "Purifying",
+  "create_more_catalysts.configuration.enablePurifyingFan": "Enable Purifying",
+  "create_more_catalysts.configuration.purifyingRemoveNegativeEffects": "Remove Negative Effects",
+  "create_more_catalysts.configuration.purifyingEntityTransforms": "Purifying Entity Transforms",
+  "create_more_catalysts.configuration.purifyingHealEntities": "Purifying Entity Heals",
+
+  "create_more_catalysts.configuration.SculkingFan": "Sculking",
+  "create_more_catalysts.configuration.enableSculkingFan": "Enable Sculking",
+  "create_more_catalysts.configuration.sculkingEntityTransforms": "Sculking Entity Transforms",
+  "create_more_catalysts.configuration.sculkingHealEntities": "Sculking Entity Heals",
+
+  "create_more_catalysts.configuration.ResonanceFan": "Resonance",
+  "create_more_catalysts.configuration.enableResonanceFan": "Enable Resonance",
+  "create_more_catalysts.configuration.resonanceEntityTransforms": "Resonance Entity Transforms",
+  "create_more_catalysts.configuration.resonanceHealEntities": "Resonance Entity Heals",
+
+  "create_more_catalysts.configuration.SandBlowFan": "Sand Blow",
+  "create_more_catalysts.configuration.enableSandBlowFan": "Enable Sand Blow",
+  "create_more_catalysts.configuration.sandBlowEntityTransforms": "Sand Blow Entity Transforms",
+  "create_more_catalysts.configuration.sandBlowHealEntities": "Sand Blow Entity Heals",
+
+  "create_more_catalysts.configuration.BreathedWindFan": "Breathed Wind",
+  "create_more_catalysts.configuration.enableBreathedWindFan": "Enable Breathed Wind",
+  "create_more_catalysts.configuration.breathedWindEntityTransforms": "Breathed Wind Entity Transforms",
+  "create_more_catalysts.configuration.breathedWindHealEntities": "Breathed Wind Entity Heals",
+
+  "create_more_catalysts.configuration.ExplodingFan": "Exploding",
+  "create_more_catalysts.configuration.enableExplodingFan": "Enable Exploding",
+  "create_more_catalysts.configuration.explodingEntityTransforms": "Exploding Entity Transforms",
+  "create_more_catalysts.configuration.explodingHealEntities": "Exploding Entity Heals",
+
+  "create_more_catalysts.configuration.HoneyCoatingFan": "Honey Coating",
+  "create_more_catalysts.configuration.enableHoneyCoatingFan": "Enable Honey Coating",
+  "create_more_catalysts.configuration.honeyCoatingEntityTransforms": "Honey Coating Entity Transforms",
+  "create_more_catalysts.configuration.honeyCoatingHealEntities": "Honey Coating Entity Heals",
+
+  "create_more_catalysts.configuration.ChocolateCoatingFan": "Chocolate Coating",
+  "create_more_catalysts.configuration.enableChocolateCoatingFan": "Enable Chocolate Coating",
+  "create_more_catalysts.configuration.chocolateCoatingEntityTransforms": "Chocolate Coating Entity Transforms",
+  "create_more_catalysts.configuration.chocolateCoatingHealEntities": "Chocolate Coating Entity Heals",
+
+  "create_more_catalysts.configuration.Integration Mod": "Integration Mod",
+  "create_more_catalysts.configuration.SaloutFan": "Salout",
+  "create_more_catalysts.configuration.enableSaloutFan": "Enable Salout (Requires Mekanism)",
+  "create_more_catalysts.configuration.saloutEntityTransforms": "Salout Entity Transforms",
+  "create_more_catalysts.configuration.saloutHealEntities": "Salout Entity Heals",
+
+  "create_more_catalysts.configuration.EtchFan": "Etch",
+  "create_more_catalysts.configuration.enableEtchFan": "Enable Etch (Requires Mekanism)",
+  "create_more_catalysts.configuration.etchEntityTransforms": "Etch Entity Transforms",
+  "create_more_catalysts.configuration.etchHealEntities": "Etch Entity Heals",
+
+  "create_more_catalysts.configuration.SulfonFan": "Sulfon",
+  "create_more_catalysts.configuration.enableSulfonFan": "Enable Sulfon (Requires Mekanism)",
+  "create_more_catalysts.configuration.sulfonEntityTransforms": "Sulfon Entity Transforms",
+  "create_more_catalysts.configuration.sulfonHealEntities": "Sulfon Entity Heals",
+
+  "create_more_catalysts.configuration.DehydFan": "Dehyd",
+  "create_more_catalysts.configuration.enableDehydFan": "Enable Dehyd (Requires Mekanism)",
+  "create_more_catalysts.configuration.dehydEntityTransforms": "Dehyd Entity Transforms",
+  "create_more_catalysts.configuration.dehydHealEntities": "Dehyd Entity Heals",
+
+  "create_more_catalysts.configuration.OxidizeFan": "Oxidize",
+  "create_more_catalysts.configuration.enableOxidizeFan": "Enable Oxidize (Requires Mekanism)",
+  "create_more_catalysts.configuration.oxidizeEntityTransforms": "Oxidize Entity Transforms",
+  "create_more_catalysts.configuration.oxidizeHealEntities": "Oxidize Entity Heals",
+
+  "create_more_catalysts.configuration.ReduceFan": "Reduce",
+  "create_more_catalysts.configuration.enableReduceFan": "Enable Reduce (Requires Mekanism)",
+  "create_more_catalysts.configuration.reduceEntityTransforms": "Reduce Entity Transforms",
+  "create_more_catalysts.configuration.reduceHealEntities": "Reduce Entity Heals",
+
+  "create_more_catalysts.configuration.FermentFan": "Ferment",
+  "create_more_catalysts.configuration.enableFermentFan": "Enable Ferment (Requires Mekanism Generators)",
+  "create_more_catalysts.configuration.fermentEntityTransforms": "Ferment Entity Transforms",
+  "create_more_catalysts.configuration.fermentHealEntities": "Ferment Entity Heals"
+}
