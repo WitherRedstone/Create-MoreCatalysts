@@ -2,6 +2,7 @@ package com.chinaex123.create_more_catalysts.processing.fans.integration.Mekanis
 
 import com.chinaex123.create_more_catalysts.CreateMoreCatalysts;
 import com.chinaex123.create_more_catalysts.config.CommonConfig;
+import com.chinaex123.create_more_catalysts.init.ModBlockTags;
 import com.chinaex123.create_more_catalysts.init.ModFluidTags;
 import com.chinaex123.create_more_catalysts.init.integration.Mekanism.MekanismFanRecipeType;
 import com.chinaex123.create_more_catalysts.processing.fans.FanEntityTransformHelper;
@@ -120,7 +121,10 @@ public final class DehydType extends MekanismFanCommonType {
     @Override
     public boolean isValidAt(Level level, BlockPos pos) {
         if (!isFanProcessingEnabled()) return false;
-        return isValidFluidCatalyst(level, pos, ModFluidTags.FAN_CATALYSTS_DEHYD);
+        return isValidCatalyst(level, pos,
+                ModFluidTags.FAN_CATALYSTS_DEHYD,
+                ModBlockTags.FAN_CATALYSTS_DEHYD
+        );
     }
 
     /**

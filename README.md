@@ -37,7 +37,7 @@ Adds various catalyst types for Create's Encased Fan, expanding processing possi
   - Entity healing list and amount
 
 ### Batch Sculking
-- **Catalyst**: Sculk Block
+- **Catalyst**: Sculk Catalyst
 - **Configurable**:
   - Enable/Disable
   - Entity transformation list
@@ -146,6 +146,17 @@ Adds various catalyst types for Create's Encased Fan, expanding processing possi
   - Entity transformation list
   - Entity healing list and amount
 
+
+### **Immersive Engineering**
+
+### Batch Preservation (Preservation)
+- **Catalyst**: Creosote Oil
+- **Configurable**:
+  - Enable/Disable
+  - Entity transformation list
+  - Entity healing list and amount
+
+
 ## Configuration
 
 All fan types can be independently enabled/disabled in `config/create-more-catalysts-common.toml`.
@@ -156,19 +167,19 @@ All fan types can be independently enabled/disabled in `config/create-more-catal
 
 ## 简介
 
-为 Create 模组的鼓风机添加多种催化剂类型，扩展加工可能性。
+为 Create 模组的鼓风机添加多种触媒类型，扩展加工可能性。
 
 ## 功能特性
 
 ### 批量凋零 (Withering)
-- **催化剂**：凋灵玫瑰
+- **触媒**：凋灵玫瑰
 - **可配置**：
   - 是否启用
   - 实体转换列表
   - 实体治疗列表及治疗量
 
 ### 批量雪流 (Snow Flow)
-- **催化剂**：雪块
+- **触媒**：雪块
 - **可配置**：
   - 是否启用
   - 实体转换列表
@@ -177,7 +188,7 @@ All fan types can be independently enabled/disabled in `config/create-more-catal
   - 使实体进入细雪冻结状态
 
 ### 批量净化 (Purifying)
-- **催化剂**：信标
+- **触媒**：信标
 - **可配置**：
   - 是否启用
   - 是否启用清除负面效果
@@ -185,7 +196,7 @@ All fan types can be independently enabled/disabled in `config/create-more-catal
   - 实体治疗列表及治疗量
 
 ### 批量幽匿 (Sculking)
-- **催化剂**：幽匿块
+- **触媒**：幽匿催发体
 - **可配置**：
   - 是否启用
   - 实体转换列表
@@ -194,28 +205,28 @@ All fan types can be independently enabled/disabled in `config/create-more-catal
   - 对生物施加黑暗和失明效果
 
 ### 批量共振 (Resonance)
-- **催化剂**：紫水晶簇
+- **触媒**：紫水晶簇
 - **可配置**：
   - 是否启用
   - 实体转换列表
   - 实体治疗列表及治疗量
 
 ### 批量扬砂 (Sand Blow)
-- **催化剂**：沙子
+- **触媒**：沙子
 - **可配置**：
   - 是否启用
   - 实体转换列表
   - 实体治疗列表及治疗量
 
 ### 批量吐息 (Breathed Wind)
-- **催化剂**：龙首
+- **触媒**：龙首
 - **可配置**：
   - 是否启用
   - 实体转换列表
   - 实体治疗列表及治疗量
 
 ### 批量爆炸 (Exploding)
-- **催化剂**：苦力怕头颅
+- **触媒**：苦力怕头颅
 - **可配置**：
   - 是否启用
   - 实体转换列表
@@ -224,14 +235,14 @@ All fan types can be independently enabled/disabled in `config/create-more-catal
   - 对生物产生爆炸
 
 ### 批量裹蜜 (Honey Coating)
-- **催化剂**：蜂蜜流体
+- **触媒**：蜂蜜流体
 - **可配置**：
   - 是否启用
   - 实体转换列表
   - 实体治疗列表及治疗量
 
 ### 批量凝巧 (Chocolate Coating)
-- **催化剂**：巧克力流体
+- **触媒**：巧克力流体
 - **可配置**：
   - 是否启用
   - 实体转换列表
@@ -243,14 +254,14 @@ All fan types can be independently enabled/disabled in `config/create-more-catal
 ### **通用机械**
 
 ### 批量盐析 (Salout)
-- **催化剂**：盐水
+- **触媒**：盐水
 - **可配置**：
   - 是否启用
   - 实体转换列表
   - 实体治疗列表及治疗量
 
 ### 批量蚀刻 (Etch)
-- **催化剂**：液态氢氟酸
+- **触媒**：液态氢氟酸
 - **可配置**：
   - 是否启用
   - 实体转换列表
@@ -259,39 +270,50 @@ All fan types can be independently enabled/disabled in `config/create-more-catal
   - 给予生物中毒VI、挖掘疲劳III和虚弱II效果
 
 ### 批量磺化 (Sulfon)
-- **催化剂**：液态二氧化硫
+- **触媒**：液态二氧化硫
 - **可配置**：
   - 是否启用
   - 实体转换列表
   - 实体治疗列表及治疗量
 
 ### 批量脱水 (Dehyd)
-- **催化剂**：液态硫酸
+- **触媒**：液态硫酸
 - **可配置**：
   - 是否启用
   - 实体转换列表
   - 实体治疗列表及治疗量
 
 ### 批量氧化 (Oxidize)
-- **催化剂**：液态氧
+- **触媒**：液态氧
 - **可配置**：
   - 是否启用
   - 实体转换列表
   - 实体治疗列表及治疗量
 
 ### 批量还原 (Reduce)
-- **催化剂**：液态氢
+- **触媒**：液态氢
 - **可配置**：
   - 是否启用
   - 实体转换列表
   - 实体治疗列表及治疗量
 
 ### 批量发酵 (Ferment)
-- **催化剂**：生物乙醇
+- **触媒**：生物乙醇
 - **可配置**：
   - 是否启用
   - 实体转换列表
   - 实体治疗列表及治疗量
+
+
+### **沉浸工程**
+
+### 批量发酵 (Preservation)
+- **触媒**：杂酚油
+- **可配置**：
+  - 是否启用
+  - 实体转换列表
+  - 实体治疗列表及治疗量
+
 
 ## 配置
 

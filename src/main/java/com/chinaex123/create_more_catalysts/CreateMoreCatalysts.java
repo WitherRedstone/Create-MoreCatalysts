@@ -3,6 +3,8 @@ package com.chinaex123.create_more_catalysts;
 import com.chinaex123.create_more_catalysts.config.CommonConfig;
 import com.chinaex123.create_more_catalysts.init.FanRecipeType;
 import com.chinaex123.create_more_catalysts.init.FanType;
+import com.chinaex123.create_more_catalysts.init.integration.ImmersiveEngineering.ImmersiveEngineeringFanType;
+import com.chinaex123.create_more_catalysts.init.integration.ImmersiveEngineering.ImmersiveEngineeringFanRecipeType;
 import com.chinaex123.create_more_catalysts.init.integration.Mekanism.MekanismFanRecipeType;
 import com.chinaex123.create_more_catalysts.init.integration.Mekanism.MekanismFanType;
 import net.minecraft.resources.ResourceLocation;
@@ -30,6 +32,12 @@ public class CreateMoreCatalysts {
         if (ModList.get().isLoaded("mekanism")) {
             MekanismFanRecipeType.register(modEventBus);
             modEventBus.addListener((RegisterEvent event) -> MekanismFanType.init());
+        }
+
+        // 通用机械
+        if (ModList.get().isLoaded("mekanism")) {
+            ImmersiveEngineeringFanRecipeType.register(modEventBus);
+            modEventBus.addListener((RegisterEvent event) -> ImmersiveEngineeringFanType.init());
         }
 
         modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);

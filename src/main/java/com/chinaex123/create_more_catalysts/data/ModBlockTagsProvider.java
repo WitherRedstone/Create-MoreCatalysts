@@ -39,7 +39,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                 .add(Blocks.BEACON);
         // 批量幽匿
         tag(ModBlockTags.FAN_CATALYSTS_SCULKING)
-                .add(Blocks.SCULK);
+                .add(Blocks.SCULK_CATALYST);
         // 批量共振
         tag(ModBlockTags.FAN_CATALYSTS_RESONANCE)
                 .add(Blocks.AMETHYST_CLUSTER);
@@ -52,27 +52,62 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         // 批量爆炸
         tag(ModBlockTags.FAN_CATALYSTS_EXPLODING)
                 .add(Blocks.CREEPER_HEAD);
+        // 批量裹蜜
+        tag(ModBlockTags.FAN_CATALYSTS_HONEY_COATING);
+        // 批量凝巧
+        tag(ModBlockTags.FAN_CATALYSTS_CHOCOLATE_COATING);
 
         // 鼓风机气流可以穿透的方块
         tag(AllTags.AllBlockTags.FAN_TRANSPARENT.tag)
-                .addTag(ModBlockTags.FAN_CATALYSTS_WITHERING)
-                .addTag(ModBlockTags.FAN_CATALYSTS_SNOW_FLOW)
-                .addTag(ModBlockTags.FAN_CATALYSTS_PURIFYING)
-                .addTag(ModBlockTags.FAN_CATALYSTS_SCULKING)
-                .addTag(ModBlockTags.FAN_CATALYSTS_RESONANCE)
-                .addTag(ModBlockTags.FAN_CATALYSTS_SAND_BLOW)
-                .addTag(ModBlockTags.FAN_CATALYSTS_BREATHED_WIND)
-                .addTag(ModBlockTags.FAN_CATALYSTS_EXPLODING);
+                .addTag(ModBlockTags.FAN_CATALYSTS_WITHERING) // 批量凋零
+                .addTag(ModBlockTags.FAN_CATALYSTS_SNOW_FLOW) // 批量雪流
+                .addTag(ModBlockTags.FAN_CATALYSTS_PURIFYING) // 批量净化
+                .addTag(ModBlockTags.FAN_CATALYSTS_SCULKING) // 批量幽匿
+                .addTag(ModBlockTags.FAN_CATALYSTS_RESONANCE) // 批量共振
+                .addTag(ModBlockTags.FAN_CATALYSTS_SAND_BLOW) // 批量扬砂
+                .addTag(ModBlockTags.FAN_CATALYSTS_BREATHED_WIND) // 批量吐息
+                .addTag(ModBlockTags.FAN_CATALYSTS_EXPLODING) // 批量爆炸
+                .addTag(ModBlockTags.FAN_CATALYSTS_HONEY_COATING) // 批量裹蜜
+                .addTag(ModBlockTags.FAN_CATALYSTS_CHOCOLATE_COATING); // 批量凝巧
 
 
         if (ModList.get().isLoaded("mekanism")) {
-            // 鼓风机 - 批量盐析
+            // 批量盐析
             tag(ModBlockTags.FAN_CATALYSTS_SALOUT)
                     .addOptional(ResourceLocation.fromNamespaceAndPath("mekanism", "block_salt"));
+            // 批量盐析
+            tag(ModBlockTags.FAN_CATALYSTS_SALOUT);
+            // 批量蚀刻
+            tag(ModBlockTags.FAN_CATALYSTS_ETCH);
+            // 批量磺化
+            tag(ModBlockTags.FAN_CATALYSTS_SULFON);
+            // 批量脱水
+            tag(ModBlockTags.FAN_CATALYSTS_DEHYD);
+            // 批量氧化
+            tag(ModBlockTags.FAN_CATALYSTS_OXIDIZE);
+            // 批量还原
+            tag(ModBlockTags.FAN_CATALYSTS_REDUCE);
+            // 批量发酵
+            tag(ModBlockTags.FAN_CATALYSTS_FERMENT);
+            
+            // 鼓风机气流可以穿透的方块
+            tag(AllTags.AllBlockTags.FAN_TRANSPARENT.tag)
+                    .addTag(ModBlockTags.FAN_CATALYSTS_SALOUT) // 批量盐析
+                    .addTag(ModBlockTags.FAN_CATALYSTS_ETCH) // 批量蚀刻
+                    .addTag(ModBlockTags.FAN_CATALYSTS_SULFON) // 批量磺化
+                    .addTag(ModBlockTags.FAN_CATALYSTS_DEHYD) // 批量脱水
+                    .addTag(ModBlockTags.FAN_CATALYSTS_OXIDIZE) // 批量氧化
+                    .addTag(ModBlockTags.FAN_CATALYSTS_REDUCE) // 批量还原
+                    .addTag(ModBlockTags.FAN_CATALYSTS_FERMENT); // 批量发酵
+        }
+
+        if (ModList.get().isLoaded("immersiveengineering")) {
+            // 批量防腐
+            tag(ModBlockTags.FAN_CATALYSTS_PRESERVATION);
 
             // 鼓风机气流可以穿透的方块
             tag(AllTags.AllBlockTags.FAN_TRANSPARENT.tag)
-                    .addTag(ModBlockTags.FAN_CATALYSTS_SALOUT);
+                    .addTag(ModBlockTags.FAN_CATALYSTS_PRESERVATION); // 批量防腐
         }
     }
 }

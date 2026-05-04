@@ -35,6 +35,7 @@ public final class ModJeiPlugin implements IModPlugin {
         categoryRegistrar.registerAll();
         categoryRegistrar.getFanCategories().registerCategories(registration);
         categoryRegistrar.getMekanismCategories().registerCategories(registration);
+        categoryRegistrar.getImmersiveEngineeringCategories().registerCategories(registration);
     }
 
     /**
@@ -45,6 +46,7 @@ public final class ModJeiPlugin implements IModPlugin {
     public void registerRecipes(@NotNull IRecipeRegistration registration) {
         categoryRegistrar.getFanCategories().registerRecipes(registration);
         categoryRegistrar.getMekanismCategories().registerRecipes(registration);
+        categoryRegistrar.getImmersiveEngineeringCategories().registerRecipes(registration);
     }
 
     /**
@@ -55,5 +57,6 @@ public final class ModJeiPlugin implements IModPlugin {
     public void registerRecipeCatalysts(@NotNull IRecipeCatalystRegistration registration) {
         categoryRegistrar.getFanCategories().registerRecipeCatalysts(registration);
         categoryRegistrar.getMekanismCategories().registerRecipeCatalysts(registration);
+        categoryRegistrar.getImmersiveEngineeringCategories().registerRecipeCatalysts(registration);
     }
 }

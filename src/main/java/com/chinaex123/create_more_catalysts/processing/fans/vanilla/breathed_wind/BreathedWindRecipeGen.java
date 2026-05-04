@@ -21,7 +21,9 @@ public class BreathedWindRecipeGen extends FanRecipeGen<FanRecipe> {
         // 附魔之瓶 → 龙息
         convert(Items.EXPERIENCE_BOTTLE, Items.DRAGON_BREATH);
         // 甜浆果 → 紫颂果
-        convert(() -> Ingredient.of(Tags.Items.FOODS_BERRY), () -> Items.CHORUS_FRUIT, 0.75F);
+        convert(() -> Ingredient.of(Tags.Items.FOODS_BERRY), () -> Items.CHORUS_FRUIT);
+        // 皮革 → 幻翼膜
+        convert(() -> Ingredient.of(Tags.Items.LEATHERS), () -> Items.PHANTOM_MEMBRANE);
     }
 
     /**

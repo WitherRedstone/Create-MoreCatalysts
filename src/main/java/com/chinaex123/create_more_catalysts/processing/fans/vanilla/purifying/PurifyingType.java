@@ -2,6 +2,7 @@ package com.chinaex123.create_more_catalysts.processing.fans.vanilla.purifying;
 
 import com.chinaex123.create_more_catalysts.CreateMoreCatalysts;
 import com.chinaex123.create_more_catalysts.config.CommonConfig;
+import com.chinaex123.create_more_catalysts.init.ModFluidTags;
 import com.chinaex123.create_more_catalysts.processing.fans.FanCommonType;
 import com.chinaex123.create_more_catalysts.processing.fans.FanEntityTransformHelper;
 import com.chinaex123.create_more_catalysts.processing.fans.FanProcessingSounds;
@@ -124,7 +125,10 @@ public final class PurifyingType extends FanCommonType {
     @Override
     public boolean isValidAt(Level level, BlockPos pos) {
         if (!isFanProcessingEnabled()) return false;
-        return isValidBlockCatalyst(level, pos, ModBlockTags.FAN_CATALYSTS_PURIFYING);
+        return isValidCatalyst(level, pos,
+                ModFluidTags.FAN_CATALYSTS_PURIFYING,
+                ModBlockTags.FAN_CATALYSTS_PURIFYING
+        );
     }
 
     /**

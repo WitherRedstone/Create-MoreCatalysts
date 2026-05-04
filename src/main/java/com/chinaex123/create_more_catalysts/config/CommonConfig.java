@@ -78,8 +78,9 @@ public class CommonConfig {
     public static final ModConfigSpec.ConfigValue<List<? extends String>> FERMENT_ENTITY_TRANSFORMS; // 批量发酵实体转换列表
     public static final ModConfigSpec.ConfigValue<List<? extends String>> FERMENT_HEAL_ENTITIES; // 批量发酵治疗实体列表
 
-
-
+    public static final ModConfigSpec.BooleanValue ENABLE_PRESERVATION_FAN; // 批量防腐
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> PRESERVATION_ENTITY_TRANSFORMS; // 批量防腐实体转换列表
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> PRESERVATION_HEAL_ENTITIES; // 批量防腐治疗实体列表
 
 
 
@@ -371,6 +372,24 @@ public class CommonConfig {
                 .defineList("fermentHealEntities",
                         List.of("", ""),
                         () -> "", obj -> obj instanceof String);
+        builder.pop();
+
+        builder.push("PreservationFan");
+        ENABLE_PRESERVATION_FAN = builder
+                .comment("Enable Batch Preservation Fan (Requires Immersive Engineering)")
+                .define("enablePreservationFan", true);
+        PRESERVATION_ENTITY_TRANSFORMS = builder
+                .comment("Batch Preservation entity transformation list, format: input_entity_id->output_entity_id")
+                .defineList("preservationEntityTransforms",
+                        java.util.List.of("", ""),
+                        () -> "",
+                        obj -> obj instanceof String);
+        PRESERVATION_HEAL_ENTITIES = builder
+                .comment("Batch Preservation entity healing list and amount, format: entity_id->heal_amount")
+                .defineList("preservationHealEntities",
+                        java.util.List.of("", ""),
+                        () -> "",
+                        obj -> obj instanceof String);
         builder.pop();
 
 
