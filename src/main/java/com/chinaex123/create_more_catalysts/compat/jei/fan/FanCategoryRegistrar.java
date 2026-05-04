@@ -1,6 +1,7 @@
 package com.chinaex123.create_more_catalysts.compat.jei.fan;
 
 import com.chinaex123.create_more_catalysts.init.FanRecipeType;
+import com.chinaex123.create_more_catalysts.init.integration.ImmersiveEngineering.ImmersiveEngineeringFanRecipeType;
 import com.chinaex123.create_more_catalysts.init.integration.Mekanism.MekanismFanRecipeType;
 import com.simibubi.create.AllFluids;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,6 +16,7 @@ public final class FanCategoryRegistrar {
 
     private final FanJeiCategories fanCategories = new FanJeiCategories();
     private final MekanismJeiCategories mekanismCategories = new MekanismJeiCategories();
+    private final ImmersiveEngineeringJeiCategories immersiveengineeringCategories = new ImmersiveEngineeringJeiCategories();
 
     /**
      * 注册所有配方类别
@@ -22,6 +24,7 @@ public final class FanCategoryRegistrar {
     public void registerAll() {
         registerVanillaCategories();
         registerMekanismCategories();
+        registerImmersiveEngineeringCategories();
     }
 
     /**
@@ -82,6 +85,16 @@ public final class FanCategoryRegistrar {
     }
 
     /**
+     * 注册模组联动的配方类别
+     */
+    private void registerImmersiveEngineeringCategories() {
+        if (!ModList.get().isLoaded("immersiveengineering")) return;
+        // 鼓风机 - 批量防腐
+        immersiveengineeringCategories.addFluidCategory("fan_preservation", ImmersiveEngineeringFanRecipeType.PRESERVATION,
+                BuiltInRegistries.FLUID.get(ResourceLocation.parse("immersiveengineering:creosote")));
+    }
+
+    /**
      * 获取鼓风机配方类别管理器
      * @return 鼓风机配方类别管理器
      */
@@ -95,5 +108,13 @@ public final class FanCategoryRegistrar {
      */
     public MekanismJeiCategories getMekanismCategories() {
         return mekanismCategories;
+    }
+
+    /**
+     * 获取通用机械联动配方类别管理器
+     * @return 通用机械联动配方类别管理器
+     */
+    public ImmersiveEngineeringJeiCategories getImmersiveEngineeringCategories() {
+        return immersiveengineeringCategories;
     }
 }

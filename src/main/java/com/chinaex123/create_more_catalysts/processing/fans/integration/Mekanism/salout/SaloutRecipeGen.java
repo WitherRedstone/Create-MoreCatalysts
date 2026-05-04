@@ -10,6 +10,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -27,7 +28,7 @@ public class SaloutRecipeGen extends MekanismFanRecipeGen<FanRecipe> {
                     builder.withItemIngredients(Ingredient.of(Items.CALCITE))
                             .output(1.0f, BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("mekanism", "salt")), 3)
                             .output(0.25f, BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("mekanism", "salt")), 2)
-                            .withCondition(new net.neoforged.neoforge.common.conditions.ModLoadedCondition("mekanism"));
+                            .withCondition(new ModLoadedCondition("mekanism"));
                     return builder;
                 });
 

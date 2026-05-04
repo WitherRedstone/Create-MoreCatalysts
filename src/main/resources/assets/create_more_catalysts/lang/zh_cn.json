@@ -18,6 +18,9 @@
   "create_more_catalysts.recipe.fan_reduce": "批量还原",
   "create_more_catalysts.recipe.fan_ferment": "批量发酵",
 
+  "create_more_catalysts.recipe.fan_preservation": "批量防腐",
+  "create_more_catalysts.recipe.fan_molding": "批量成型",
+
   "create_more_catalysts.configuration.CoreCcontent": "模组本体内容",
   "create_more_catalysts.configuration.WitheringFan": "批量凋零",
   "create_more_catalysts.configuration.enableWitheringFan": "启用批量凋零",
@@ -104,5 +107,15 @@
   "create_more_catalysts.configuration.FermentFan": "批量发酵",
   "create_more_catalysts.configuration.enableFermentFan": "启用批量发酵（需要 Mekanism Generators）",
   "create_more_catalysts.configuration.fermentEntityTransforms": "批量发酵实体转换列表",
-  "create_more_catalysts.configuration.fermentHealEntities": "批量发酵实体治疗列表"
+  "create_more_catalysts.configuration.fermentHealEntities": "批量发酵实体治疗列表",
+
+  "create_more_catalysts.configuration.PreservationFan": "批量防腐",
+  "create_more_catalysts.configuration.enablePreservationFan": "启用批量防腐（需要 Immersive Engineering）",
+  "create_more_catalysts.configuration.preservationEntityTransforms": "批量防腐实体转换列表",
+  "create_more_catalysts.configuration.preservationHealEntities": "批量防腐实体治疗列表",
+
+  "create_more_catalysts.configuration.MoldingFan": "批量成型",
+  "create_more_catalysts.configuration.enableMoldingFan": "启用批量成型（需要 Immersive Engineering）",
+  "create_more_catalysts.configuration.moldingEntityTransforms": "批量成型实体转换列表",
+  "create_more_catalysts.configuration.moldingHealEntities": "批量成型实体治疗列表"
 }

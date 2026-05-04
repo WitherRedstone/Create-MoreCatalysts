@@ -1,15 +1,12 @@
 package com.chinaex123.create_more_catalysts.data;
 
 import com.chinaex123.create_more_catalysts.CreateMoreCatalysts;
-import com.chinaex123.create_more_catalysts.init.ModBlockTags;
 import com.chinaex123.create_more_catalysts.init.ModFluidTags;
 import com.simibubi.create.AllFluids;
-import com.simibubi.create.AllTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagEntry;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -26,39 +23,65 @@ public class ModFluidTagsProvider extends FluidTagsProvider {
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
 
-        // 鼓风机 - 批量凋零
+        // 批量凋零
+        tag(ModFluidTags.FAN_CATALYSTS_WITHERING);
+        // 批量雪流
+        tag(ModFluidTags.FAN_CATALYSTS_SNOW_FLOW);
+        // 批量净化
+        tag(ModFluidTags.FAN_CATALYSTS_PURIFYING);
+        // 批量幽匿
+        tag(ModFluidTags.FAN_CATALYSTS_SCULKING);
+        // 批量共振
+        tag(ModFluidTags.FAN_CATALYSTS_RESONANCE);
+        // 批量扬砂
+        tag(ModFluidTags.FAN_CATALYSTS_SAND_BLOW);
+        // 批量吐息
+        tag(ModFluidTags.FAN_CATALYSTS_BREATHED_WIND);
+        // 批量爆炸
+        tag(ModFluidTags.FAN_CATALYSTS_EXPLODING);
+        // 批量裹蜜
         tag(ModFluidTags.FAN_CATALYSTS_HONEY_COATING)
                 .add(AllFluids.HONEY.get())
                 .addTag(Tags.Fluids.HONEY);
-        // 鼓风机 - 批量凝巧
+        // 批量凝巧
         tag(ModFluidTags.FAN_CATALYSTS_CHOCOLATE_COATING)
                 .add(AllFluids.CHOCOLATE.get())
                 .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "chocolate"));
 
 
         if (ModList.get().isLoaded("mekanism")) {
-            // 鼓风机 - 批量盐析
+            // 批量盐析
             tag(ModFluidTags.FAN_CATALYSTS_SALOUT)
                     .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "brine"));
-            // 鼓风机 - 批量蚀刻
+            // 批量蚀刻
             tag(ModFluidTags.FAN_CATALYSTS_ETCH)
                     .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "hydrofluoric_acid"));
-            // 鼓风机 - 批量磺化
+            // 批量磺化
             tag(ModFluidTags.FAN_CATALYSTS_SULFON)
                     .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "sulfur_dioxide"));
-            // 鼓风机 - 批量脱水
+            // 批量脱水
             tag(ModFluidTags.FAN_CATALYSTS_DEHYD)
                     .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "sulfuric_acid"));
-            // 鼓风机 - 批量氧化
+            // 批量氧化
             tag(ModFluidTags.FAN_CATALYSTS_OXIDIZE)
                     .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "oxygen"));
-            // 鼓风机 - 批量还原
+            // 批量还原
             tag(ModFluidTags.FAN_CATALYSTS_REDUCE)
                     .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "hydrogen"));
-            // 鼓风机 - 批量发酵
+            // 批量发酵
             tag(ModFluidTags.FAN_CATALYSTS_FERMENT)
                     .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "bioethanol"));
         }
 
+        if (ModList.get().isLoaded("immersiveengineering")) {
+            // 批量防腐
+            tag(ModFluidTags.FAN_CATALYSTS_PRESERVATION)
+                    .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "creosote"));
+        }
+
+        if (ModList.get().isLoaded("immersiveengineering")) {
+            // 批量防腐
+            tag(ModFluidTags.FAN_CATALYSTS_PRESERVATION);
+        }
     }
 }

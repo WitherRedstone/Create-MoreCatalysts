@@ -1,6 +1,7 @@
 package com.chinaex123.create_more_catalysts.data;
 
 import com.chinaex123.create_more_catalysts.CreateMoreCatalysts;
+import com.chinaex123.create_more_catalysts.processing.fans.integration.ImmersiveEngineering.preservation.PreservationRecipeGen;
 import com.chinaex123.create_more_catalysts.processing.fans.integration.Mekanism.dehyd.DehydRecipeGen;
 import com.chinaex123.create_more_catalysts.processing.fans.integration.Mekanism.etch.EtchRecipeGen;
 import com.chinaex123.create_more_catalysts.processing.fans.integration.Mekanism.ferment.FermentRecipeGen;
@@ -62,7 +63,7 @@ public class ModDataGenerator {
         generator.addProvider(event.includeServer(), new ChocolateCoatingRecipeGen(packOutput, lookupProvider)); // 批量凝巧
 
         // =============================== 模组联动内容 ===============================
-        // ==================== Mekanism 联动 ====================
+        // ==================== 通用机械 联动 ====================
         if (ModList.get().isLoaded("mekanism")) {
             generator.addProvider(event.includeServer(), new SaloutRecipeGen(packOutput, lookupProvider)); // 批量盐析
             generator.addProvider(event.includeServer(), new EtchRecipeGen(packOutput, lookupProvider)); // 批量蚀刻
@@ -71,6 +72,11 @@ public class ModDataGenerator {
             generator.addProvider(event.includeServer(), new OxidizeRecipeGen(packOutput, lookupProvider)); // 批量氧化
             generator.addProvider(event.includeServer(), new ReduceRecipeGen(packOutput, lookupProvider)); // 批量还原
             generator.addProvider(event.includeServer(), new FermentRecipeGen(packOutput, lookupProvider)); // 批量发酵
+        }
+
+        // ==================== 沉浸工程 联动 ====================
+        if (ModList.get().isLoaded("immersiveengineering")) {
+            generator.addProvider(event.includeServer(), new PreservationRecipeGen(packOutput, lookupProvider)); // 批量防腐
         }
     }
 }

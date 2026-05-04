@@ -147,8 +147,9 @@ dependencies {
 
     // 联动
     localRuntime "curse.maven:mekanism-268560:7904058" // 通用机械
-    localRuntime "curse.maven:mekanism-generators-268566:7904061" // 通用机械-发电机
-    localRuntime "curse.maven:mekanism-additions-345425:7904060" // 通用机械-附加
+    localRuntime "curse.maven:mekanism-generators-268566:7904061" // 通用机械：发电机
+    localRuntime "curse.maven:immersive-engineering-231951:6733669" // 沉浸工程
+    //localRuntime "curse.maven:immersive-petroleum-268250:7512548" // 沉浸原油
 
 
     // 辅助
@@ -157,7 +158,7 @@ dependencies {
     localRuntime "curse.maven:jade-324717:7545219" // jade
     localRuntime "curse.maven:kubejs-238086:7278501"
     localRuntime "curse.maven:rhino-416294:7104526"
-    localRuntime "maven.modrinth:item-icon-exporter:1.0.1-NeoForge-1.21.1"
+    //localRuntime "maven.modrinth:item-icon-exporter:1.0.1-NeoForge-1.21.1"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

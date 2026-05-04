@@ -178,6 +178,30 @@ public final class FanProcessingSounds {
     }
 
     /**
+     * 播放防腐音效
+     * @param level 世界实例
+     * @param pos 音效播放位置
+     */
+    public static void preservationSound(Level level, BlockPos pos) {
+        if (shouldNotPlayOnTick(level, pos, 30, 63)) return;
+        playLayered(level, pos,
+                SoundEvents.HONEY_DRINK, 0.3f, 1.0f, 1.2f,
+                SoundEvents.GENERIC_DRINK, 0.15f, 0.9f, 1.1f);
+    }
+
+    /**
+     * 播放成型音效
+     * @param level 世界实例
+     * @param pos 音效播放位置
+     */
+    public static void moldingSound(Level level, BlockPos pos) {
+        if (shouldNotPlayOnTick(level, pos, 30, 63)) return;
+        playLayered(level, pos,
+                SoundEvents.STONE_PLACE, 0.3f, 1.0f, 1.2f,
+                SoundEvents.GRAVEL_PLACE, 0.15f, 0.9f, 1.1f);
+    }
+
+    /**
      * 判断当前刻是否应跳过音效播放：基于位置和游戏时间的哈希算法实现分散播放
      * @param level 世界实例
      * @param pos 音效位置
