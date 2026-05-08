@@ -1,0 +1,13 @@
+{
+  "type": "create_more_catalysts:mossify",
+  "ingredients": [
+    {
+      "item": "minecraft:cobblestone_slab"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:mossy_cobblestone_slab"
+    }
+  ]
+}

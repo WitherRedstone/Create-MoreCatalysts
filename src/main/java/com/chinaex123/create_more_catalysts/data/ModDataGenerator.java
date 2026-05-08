@@ -1,6 +1,7 @@
 package com.chinaex123.create_more_catalysts.data;
 
 import com.chinaex123.create_more_catalysts.CreateMoreCatalysts;
+import com.chinaex123.create_more_catalysts.processing.fans.integration.Anvilcraft.corrupted.CorruptedRecipeGen;
 import com.chinaex123.create_more_catalysts.processing.fans.integration.ImmersiveEngineering.preservation.PreservationRecipeGen;
 import com.chinaex123.create_more_catalysts.processing.fans.integration.Mekanism.dehyd.DehydRecipeGen;
 import com.chinaex123.create_more_catalysts.processing.fans.integration.Mekanism.etch.EtchRecipeGen;
@@ -13,11 +14,14 @@ import com.chinaex123.create_more_catalysts.processing.fans.vanilla.breathed_win
 import com.chinaex123.create_more_catalysts.processing.fans.vanilla.chocolate_coating.ChocolateCoatingRecipeGen;
 import com.chinaex123.create_more_catalysts.processing.fans.vanilla.exploding.ExplodingRecipeGen;
 import com.chinaex123.create_more_catalysts.processing.fans.vanilla.honey_coating.HoneyCoatingRecipeGen;
+import com.chinaex123.create_more_catalysts.processing.fans.vanilla.mossify.MossifyRecipeGen;
 import com.chinaex123.create_more_catalysts.processing.fans.vanilla.purifying.PurifyingRecipeGen;
 import com.chinaex123.create_more_catalysts.processing.fans.vanilla.resonance.ResonanceRecipeGen;
 import com.chinaex123.create_more_catalysts.processing.fans.vanilla.sand_blow.SandBlowRecipeGen;
 import com.chinaex123.create_more_catalysts.processing.fans.vanilla.sculking.SculkingRecipeGen;
 import com.chinaex123.create_more_catalysts.processing.fans.vanilla.snow_flow.SnowFlowRecipeGen;
+import com.chinaex123.create_more_catalysts.processing.fans.vanilla.tear.TearRecipeGen;
+import com.chinaex123.create_more_catalysts.processing.fans.vanilla.tidal.TidalRecipeGen;
 import com.chinaex123.create_more_catalysts.processing.fans.vanilla.withering.WitheringRecipeGen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -58,6 +62,9 @@ public class ModDataGenerator {
         generator.addProvider(event.includeServer(), new SandBlowRecipeGen(packOutput, lookupProvider)); // 批量扬砂
         generator.addProvider(event.includeServer(), new BreathedWindRecipeGen(packOutput, lookupProvider)); // 批量吐息
         generator.addProvider(event.includeServer(), new ExplodingRecipeGen(packOutput, lookupProvider)); // 批量爆炸
+        generator.addProvider(event.includeServer(), new TidalRecipeGen(packOutput, lookupProvider)); // 批量海潮
+        generator.addProvider(event.includeServer(), new TearRecipeGen(packOutput, lookupProvider)); // 批量催泪
+        generator.addProvider(event.includeServer(), new MossifyRecipeGen(packOutput, lookupProvider)); // 批量苔化
         // ==================== 流体触媒 ====================
         generator.addProvider(event.includeServer(), new HoneyCoatingRecipeGen(packOutput, lookupProvider)); // 批量裹蜜
         generator.addProvider(event.includeServer(), new ChocolateCoatingRecipeGen(packOutput, lookupProvider)); // 批量凝巧
@@ -77,6 +84,11 @@ public class ModDataGenerator {
         // ==================== 沉浸工程 联动 ====================
         if (ModList.get().isLoaded("immersiveengineering")) {
             generator.addProvider(event.includeServer(), new PreservationRecipeGen(packOutput, lookupProvider)); // 批量防腐
+        }
+
+        // ==================== 铁砧工艺/莱特兰-恶意 联动 ====================
+        if (ModList.get().isLoaded("anvilcraft") || ModList.get().isLoaded("l2hostility")) {
+            generator.addProvider(event.includeServer(), new CorruptedRecipeGen(packOutput, lookupProvider)); // 批量腐化
         }
     }
 }

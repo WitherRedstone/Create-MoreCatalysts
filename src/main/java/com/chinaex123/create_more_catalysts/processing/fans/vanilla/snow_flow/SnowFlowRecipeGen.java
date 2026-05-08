@@ -16,6 +16,8 @@ import java.util.concurrent.CompletableFuture;
 public class SnowFlowRecipeGen extends FanRecipeGen<FanRecipe> {
 
     {
+        // 水桶 → 雪桶
+        convert(Items.WATER_BUCKET, Items.POWDER_SNOW_BUCKET);
         // 黏土 → 雪球
         convert(Items.CLAY_BALL, Items.SNOWBALL);
     }

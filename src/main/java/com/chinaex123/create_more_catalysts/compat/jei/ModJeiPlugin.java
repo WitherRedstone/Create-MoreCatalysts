@@ -1,6 +1,5 @@
 package com.chinaex123.create_more_catalysts.compat.jei;
 
-import com.chinaex123.create_more_catalysts.compat.jei.fan.FanCategoryRegistrar;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -36,6 +35,7 @@ public final class ModJeiPlugin implements IModPlugin {
         categoryRegistrar.getFanCategories().registerCategories(registration);
         categoryRegistrar.getMekanismCategories().registerCategories(registration);
         categoryRegistrar.getImmersiveEngineeringCategories().registerCategories(registration);
+        categoryRegistrar.getAnvilcraftCategories().registerCategories(registration);
     }
 
     /**
@@ -47,6 +47,7 @@ public final class ModJeiPlugin implements IModPlugin {
         categoryRegistrar.getFanCategories().registerRecipes(registration);
         categoryRegistrar.getMekanismCategories().registerRecipes(registration);
         categoryRegistrar.getImmersiveEngineeringCategories().registerRecipes(registration);
+        categoryRegistrar.getAnvilcraftCategories().registerRecipes(registration);
     }
 
     /**
@@ -58,5 +59,6 @@ public final class ModJeiPlugin implements IModPlugin {
         categoryRegistrar.getFanCategories().registerRecipeCatalysts(registration);
         categoryRegistrar.getMekanismCategories().registerRecipeCatalysts(registration);
         categoryRegistrar.getImmersiveEngineeringCategories().registerRecipeCatalysts(registration);
+        categoryRegistrar.getAnvilcraftCategories().registerRecipeCatalysts(registration);
     }
 }

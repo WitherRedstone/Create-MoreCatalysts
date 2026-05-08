@@ -1,0 +1,13 @@
+{
+  "type": "create_more_catalysts:tear",
+  "ingredients": [
+    {
+      "item": "minecraft:obsidian"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:crying_obsidian"
+    }
+  ]
+}

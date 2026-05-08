@@ -1,6 +1,7 @@
 package com.chinaex123.create_more_catalysts.compat.jei.fan;
 
 import com.chinaex123.create_more_catalysts.CreateMoreCatalysts;
+import com.chinaex123.create_more_catalysts.compat.jei.AnimatedConduit;
 import com.chinaex123.create_more_catalysts.data.recipe.FanRecipe;
 import com.chinaex123.create_more_catalysts.init.FanRecipeType;
 import com.simibubi.create.AllBlocks;
@@ -13,6 +14,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
@@ -80,6 +82,15 @@ public final class FanJeiCategories {
      */
     public void addHeadCategory(String name, FanRecipeType.RecipeTypeEntry recipeType, Block catalystBlock) {
         categories.add(buildFanCategoryWithHead(name, recipeType, catalystBlock, builder -> {}));
+    }
+
+    /**
+     * 添加潮涌核心催化剂的配方类别
+     * @param name 类别名称标识
+     * @param recipeType 配方类型入口
+     */
+    public void addConduitCategory(String name, FanRecipeType.RecipeTypeEntry recipeType) {
+        categories.add(buildFanCategoryWithConduit(name, recipeType, builder -> {}));
     }
 
     /**
@@ -167,6 +178,32 @@ public final class FanJeiCategories {
     }
 
     /**
+     * 构建鼓风机加工配方类别（潮涌核心催化剂）
+     * @param name 类别名称标识
+     * @param recipeType 配方类型入口
+     * @param config 额外的配置回调
+     * @return 构建完成的配方类别实例
+     */
+    private static CreateRecipeCategory<FanRecipe> buildFanCategoryWithConduit(
+            String name,
+            FanRecipeType.RecipeTypeEntry recipeType,
+            Consumer<CreateRecipeCategory.Builder<FanRecipe>> config) {
+        return buildCategory(
+                FanRecipe.class,
+                name,
+                FanProcessingCategoryWithConduit::new,
+                builder -> {
+                    builder
+                            .addTypedRecipes(recipeType)
+                            .catalystStack(AllBlocks.ENCASED_FAN::asStack)
+                            .doubleItemIcon(AllItems.PROPELLER.get(), Blocks.CONDUIT)
+                            .emptyBackground(178, 72);
+                    config.accept(builder);
+                }
+        );
+    }
+
+    /**
      * 通用配方类别构建方法
      * @param recipeClass 配方类类型
      * @param name 类别名称
@@ -230,6 +267,23 @@ public final class FanJeiCategories {
                     .atLocal(0, 0, 2)
                     .lighting(AnimatedKinetics.DEFAULT_LIGHTING)
                     .render(graphics);
+        }
+    }
+
+    /**
+     * 鼓风机加工配方渲染类（潮涌核心专用）：使用自定义动画渲染器
+     */
+    private static final class FanProcessingCategoryWithConduit extends ProcessingViaFanCategory.MultiOutput<FanRecipe> {
+
+        private final AnimatedConduit conduit = new AnimatedConduit();
+
+        private FanProcessingCategoryWithConduit(Info<FanRecipe> info) {
+            super(info);
+        }
+
+        @Override
+        protected void renderAttachedBlock(GuiGraphics graphics) {
+            conduit.draw(graphics, 0, 0);
         }
     }
 }

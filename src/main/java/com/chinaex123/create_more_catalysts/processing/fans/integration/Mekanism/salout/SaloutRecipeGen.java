@@ -21,9 +21,7 @@ public class SaloutRecipeGen extends MekanismFanRecipeGen<FanRecipe> {
 
     {
         // 方解石 → 盐
-//        convert(() -> Ingredient.of(Items.CALCITE), () -> BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("mekanism", "salt")),
-//                1.0f, new ModLoadedCondition("mekanism"));
-        create(CreateMoreCatalysts.id("salout/salt_from_calcite"),
+        create(CreateMoreCatalysts.id("salt_from_calcite"),
                 builder -> {
                     builder.withItemIngredients(Ingredient.of(Items.CALCITE))
                             .output(1.0f, BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("mekanism", "salt")), 3)

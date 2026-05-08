@@ -26,17 +26,20 @@ public final class FanRecipeType {
 
     // =============================== 模组本体 ===============================
     // ==================== 方块触媒 ====================
-    public static RecipeTypeEntry WITHERING; // 鼓风机 - 批量凋零
-    public static RecipeTypeEntry SNOW_FLOW; // 鼓风机 - 批量雪流
-    public static RecipeTypeEntry PURIFYING; // 鼓风机 - 批量净化
-    public static RecipeTypeEntry SCULKING; // 鼓风机 - 批量幽匿
-    public static RecipeTypeEntry RESONANCE; // 鼓风机 - 批量共振
-    public static RecipeTypeEntry SAND_BLOW; // 鼓风机 - 批量扬砂
-    public static RecipeTypeEntry BREATHED_WIND; // 鼓风机 - 批量吐息
-    public static RecipeTypeEntry EXPLODING; // 鼓风机 - 批量爆炸
+    public static RecipeTypeEntry WITHERING; // 批量凋零
+    public static RecipeTypeEntry SNOW_FLOW; // 批量雪流
+    public static RecipeTypeEntry PURIFYING; // 批量净化
+    public static RecipeTypeEntry SCULKING; // 批量幽匿
+    public static RecipeTypeEntry RESONANCE; // 批量共振
+    public static RecipeTypeEntry SAND_BLOW; // 批量扬砂
+    public static RecipeTypeEntry BREATHED_WIND; // 批量吐息
+    public static RecipeTypeEntry EXPLODING; // 批量爆炸
+    public static RecipeTypeEntry TIDAL; // 批量海潮
+    public static RecipeTypeEntry TEAR; // 批量催泪
+    public static RecipeTypeEntry MOSSIFY; // 批量苔化
     // ==================== 流体触媒 ====================
-    public static RecipeTypeEntry HONEY_COATING; // 鼓风机 - 批量裹蜜
-    public static RecipeTypeEntry CHOCOLATE_COATING; // 鼓风机 - 批量凝巧
+    public static RecipeTypeEntry HONEY_COATING; // 批量裹蜜
+    public static RecipeTypeEntry CHOCOLATE_COATING; // 批量凝巧
 
     /*
       静态初始化块：注册所有鼓风机配方类型
@@ -44,26 +47,32 @@ public final class FanRecipeType {
     static {
         // =============================== 模组本体 ===============================
         // ==================== 方块触媒 ====================
-        // 鼓风机 - 批量凋零
+        // 批量凋零
         WITHERING = registerStandard("withering", params -> new FanRecipe(WITHERING, params));
-        // 鼓风机 - 批量雪流
+        // 批量雪流
         SNOW_FLOW = registerStandard("snow_flow", params -> new FanRecipe(SNOW_FLOW, params));
-        // 鼓风机 - 批量净化
+        // 批量净化
         PURIFYING = registerStandard("purifying", params -> new FanRecipe(PURIFYING, params));
-        // 鼓风机 - 批量幽匿
+        // 批量幽匿
         SCULKING = registerStandard("sculking", params -> new FanRecipe(SCULKING, params));
-        // 鼓风机 - 批量共振
+        // 批量共振
         RESONANCE = registerStandard("resonance", params -> new FanRecipe(RESONANCE, params));
-        // 鼓风机 - 批量扬砂
+        // 批量扬砂
         SAND_BLOW = registerStandard("sand_blow", params -> new FanRecipe(SAND_BLOW, params));
-        // 鼓风机 - 批量吐息
+        // 批量吐息
         BREATHED_WIND = registerStandard("breathed_wind", params -> new FanRecipe(BREATHED_WIND, params));
-        // 鼓风机 - 批量爆炸
+        // 批量爆炸
         EXPLODING = registerStandard("exploding", params -> new FanRecipe(EXPLODING, params));
+        // 批量海潮
+        TIDAL = registerStandard("tidal", params -> new FanRecipe(TIDAL, params));
+        // 批量催泪
+        TEAR = registerStandard("tear", params -> new FanRecipe(TEAR, params));
+        // 批量苔化
+        MOSSIFY = registerStandard("mossify", params -> new FanRecipe(MOSSIFY, params));
         // ==================== 流体触媒 ====================
-        // 鼓风机 - 批量裹蜜
+        // 批量裹蜜
         HONEY_COATING = registerStandard("honey_coating", params -> new FanRecipe(HONEY_COATING, params));
-        // 鼓风机 - 批量凝巧
+        // 批量凝巧
         CHOCOLATE_COATING = registerStandard("chocolate_coating", params -> new FanRecipe(CHOCOLATE_COATING, params));
     }
 

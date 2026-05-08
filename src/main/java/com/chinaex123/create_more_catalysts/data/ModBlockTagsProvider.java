@@ -52,6 +52,15 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         // 批量爆炸
         tag(ModBlockTags.FAN_CATALYSTS_EXPLODING)
                 .add(Blocks.CREEPER_HEAD);
+        // 批量海潮
+        tag(ModBlockTags.FAN_CATALYSTS_TIDAL)
+                .add(Blocks.CONDUIT);
+        // 批量催泪
+        tag(ModBlockTags.FAN_CATALYSTS_TEAR)
+                .add(Blocks.CRYING_OBSIDIAN);
+        // 批量苔化
+        tag(ModBlockTags.FAN_CATALYSTS_MOSSIFY)
+                .add(Blocks.MOSS_BLOCK);
         // 批量裹蜜
         tag(ModBlockTags.FAN_CATALYSTS_HONEY_COATING);
         // 批量凝巧
@@ -67,6 +76,9 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                 .addTag(ModBlockTags.FAN_CATALYSTS_SAND_BLOW) // 批量扬砂
                 .addTag(ModBlockTags.FAN_CATALYSTS_BREATHED_WIND) // 批量吐息
                 .addTag(ModBlockTags.FAN_CATALYSTS_EXPLODING) // 批量爆炸
+                .addTag(ModBlockTags.FAN_CATALYSTS_TIDAL) // 批量海潮
+                .addTag(ModBlockTags.FAN_CATALYSTS_TEAR) // 批量催泪
+                .addTag(ModBlockTags.FAN_CATALYSTS_MOSSIFY) // 批量苔化
                 .addTag(ModBlockTags.FAN_CATALYSTS_HONEY_COATING) // 批量裹蜜
                 .addTag(ModBlockTags.FAN_CATALYSTS_CHOCOLATE_COATING); // 批量凝巧
 
@@ -108,6 +120,17 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
             // 鼓风机气流可以穿透的方块
             tag(AllTags.AllBlockTags.FAN_TRANSPARENT.tag)
                     .addTag(ModBlockTags.FAN_CATALYSTS_PRESERVATION); // 批量防腐
+        }
+
+        if (ModList.get().isLoaded("anvilcraft") || ModList.get().isLoaded("l2hostility")) {
+            // 批量腐化
+            tag(ModBlockTags.FAN_CATALYSTS_CORRUPTED)
+                    .addOptional(ResourceLocation.fromNamespaceAndPath("anvilcraft", "corrupted_beacon"))
+                    .addOptional(ResourceLocation.fromNamespaceAndPath("l2hostility", "hostility_beacon"));
+
+            // 鼓风机气流可以穿透的方块
+            tag(AllTags.AllBlockTags.FAN_TRANSPARENT.tag)
+                    .addTag(ModBlockTags.FAN_CATALYSTS_CORRUPTED); // 批量腐化
         }
     }
 }

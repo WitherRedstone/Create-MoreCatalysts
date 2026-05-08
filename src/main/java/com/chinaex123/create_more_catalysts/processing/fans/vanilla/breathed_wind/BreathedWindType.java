@@ -9,21 +9,21 @@ import com.chinaex123.create_more_catalysts.processing.fans.FanProcessingSounds;
 import com.chinaex123.create_more_catalysts.init.FanRecipeType;
 import com.chinaex123.create_more_catalysts.init.ModBlockTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * 批量吐息鼓风机类型
@@ -36,11 +36,13 @@ public final class BreathedWindType extends FanCommonType {
     private static final Map<EntityType<?>, EntityType<?>> TRANSFORM_MAP = new HashMap<>();
     private static final Map<EntityType<?>, Float> HEAL_MAP = new HashMap<>();
     private static boolean CONFIG_LOADED = false;
+    private static final List<BreathedWindType.PotionEffectEntry> POTION_EFFECTS = new ArrayList<>();
 
     private static synchronized void ensureConfigLoaded() {
         if (CONFIG_LOADED) return;
         loadTransformConfig();
         loadHealConfig();
+        loadPotionEffectsConfig();
         CONFIG_LOADED = true;
     }
 
@@ -62,16 +64,20 @@ public final class BreathedWindType extends FanCommonType {
         for (String transform : transforms) {
             String[] parts = transform.split("->");
             if (parts.length == 2) {
-                ResourceLocation inputLoc = ResourceLocation.tryParse(parts[0].trim());
-                ResourceLocation outputLoc = ResourceLocation.tryParse(parts[1].trim());
 
-                if (inputLoc != null && outputLoc != null) {
-                    Optional<EntityType<?>> inputType = BuiltInRegistries.ENTITY_TYPE.getOptional(inputLoc);
-                    Optional<EntityType<?>> outputType = BuiltInRegistries.ENTITY_TYPE.getOptional(outputLoc);
+                try {
+                    ResourceLocation inputLoc = ResourceLocation.tryParse(parts[0].trim());
+                    ResourceLocation outputLoc = ResourceLocation.tryParse(parts[1].trim());
+                    if (inputLoc != null && outputLoc != null) {
+                        Optional<EntityType<?>> inputType = BuiltInRegistries.ENTITY_TYPE.getOptional(inputLoc);
+                        Optional<EntityType<?>> outputType = BuiltInRegistries.ENTITY_TYPE.getOptional(outputLoc);
 
-                    if (inputType.isPresent() && outputType.isPresent()) {
-                        TRANSFORM_MAP.put(inputType.get(), outputType.get());
+                        if (inputType.isPresent() && outputType.isPresent()) {
+                            TRANSFORM_MAP.put(inputType.get(), outputType.get());
+                        }
                     }
+                } catch (Exception e) {
+                    CreateMoreCatalysts.LOGGER.warn("[Batch Breathed]Invalid entity transform config: {}", transform);
                 }
             }
         }
@@ -85,15 +91,44 @@ public final class BreathedWindType extends FanCommonType {
         for (String heal : heals) {
             String[] parts = heal.split("->");
             if (parts.length == 2) {
-                ResourceLocation entityLoc = ResourceLocation.tryParse(parts[0].trim());
+
                 try {
+                    ResourceLocation entityLoc = ResourceLocation.tryParse(parts[0].trim());
                     float healAmount = Float.parseFloat(parts[1].trim());
                     if (entityLoc != null) {
                         Optional<EntityType<?>> entityType = BuiltInRegistries.ENTITY_TYPE.getOptional(entityLoc);
                         entityType.ifPresent(type -> HEAL_MAP.put(type, healAmount));
                     }
                 } catch (NumberFormatException e) {
-                    CreateMoreCatalysts.LOGGER.warn("Invalid heal amount in breathed wind config: {}", heal);
+                    String entityName = parts[0].trim();
+                    String healValueStr = parts[1].trim();
+                    CreateMoreCatalysts.LOGGER.warn("[Batch Breathed]Invalid heal amount for {}: {} (must be a number)", entityName, healValueStr);
+                }
+            }
+        }
+    }
+
+    /**
+     * 从配置文件加载状态效果规则
+     */
+    private static void loadPotionEffectsConfig() {
+        POTION_EFFECTS.clear();
+        List<? extends String> effects = CommonConfig.BREATHED_WIND_POTION_EFFECTS.get();
+        for (String effect : effects) {
+            String[] parts = effect.trim().split("\\s+");
+            if (parts.length >= 3) {
+
+                try {
+                    ResourceLocation effectLoc = ResourceLocation.tryParse(parts[0]);
+                    int duration = Integer.parseInt(parts[1]);
+                    int amplifier = Integer.parseInt(parts[2]);
+
+                    if (effectLoc != null) {
+                        BuiltInRegistries.MOB_EFFECT.getHolder(effectLoc).ifPresent(eff ->
+                                POTION_EFFECTS.add(new BreathedWindType.PotionEffectEntry(eff, duration, amplifier)));
+                    }
+                } catch (NumberFormatException e) {
+                    CreateMoreCatalysts.LOGGER.warn("[Batch Breathed]Invalid potion effect config: {}", effect);
                 }
             }
         }
@@ -183,7 +218,17 @@ public final class BreathedWindType extends FanCommonType {
             living.heal(healAmount);
         }
 
-        // 播放吐息音效
+        // 为配置的实体施加状态效果
+        for (BreathedWindType.PotionEffectEntry entry : POTION_EFFECTS) {
+            MobEffectInstance currentEffect = living.getEffect(entry.effect);
+            if (currentEffect == null || currentEffect.getDuration() < 20) {
+                living.addEffect(new MobEffectInstance(entry.effect, entry.duration, entry.amplifier, false, false));
+            }
+        }
+
+        // 播放音效
         FanProcessingSounds.breathedWindSound(level, living.blockPosition());
     }
+
+    private record PotionEffectEntry(Holder.Reference<MobEffect> effect, int duration, int amplifier) {}
 }

@@ -39,6 +39,12 @@ public class ModFluidTagsProvider extends FluidTagsProvider {
         tag(ModFluidTags.FAN_CATALYSTS_BREATHED_WIND);
         // 批量爆炸
         tag(ModFluidTags.FAN_CATALYSTS_EXPLODING);
+        // 批量海潮
+        tag(ModFluidTags.FAN_CATALYSTS_TIDAL);
+        // 批量催泪
+        tag(ModFluidTags.FAN_CATALYSTS_TEAR);
+        // 批量苔化
+        tag(ModFluidTags.FAN_CATALYSTS_MOSSIFY);
         // 批量裹蜜
         tag(ModFluidTags.FAN_CATALYSTS_HONEY_COATING)
                 .add(AllFluids.HONEY.get())
@@ -82,6 +88,11 @@ public class ModFluidTagsProvider extends FluidTagsProvider {
         if (ModList.get().isLoaded("immersiveengineering")) {
             // 批量防腐
             tag(ModFluidTags.FAN_CATALYSTS_PRESERVATION);
+        }
+
+        if (ModList.get().isLoaded("anvilcraft") || ModList.get().isLoaded("l2hostility")) {
+            // 批量腐化
+            tag(ModFluidTags.FAN_CATALYSTS_CORRUPTED);
         }
     }
 }

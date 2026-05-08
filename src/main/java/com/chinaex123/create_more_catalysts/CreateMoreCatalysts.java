@@ -3,6 +3,8 @@ package com.chinaex123.create_more_catalysts;
 import com.chinaex123.create_more_catalysts.config.CommonConfig;
 import com.chinaex123.create_more_catalysts.init.FanRecipeType;
 import com.chinaex123.create_more_catalysts.init.FanType;
+import com.chinaex123.create_more_catalysts.init.integration.Anvilcraft.AnvilcraftFanRecipeType;
+import com.chinaex123.create_more_catalysts.init.integration.Anvilcraft.AnvilcraftFanType;
 import com.chinaex123.create_more_catalysts.init.integration.ImmersiveEngineering.ImmersiveEngineeringFanType;
 import com.chinaex123.create_more_catalysts.init.integration.ImmersiveEngineering.ImmersiveEngineeringFanRecipeType;
 import com.chinaex123.create_more_catalysts.init.integration.Mekanism.MekanismFanRecipeType;
@@ -34,10 +36,16 @@ public class CreateMoreCatalysts {
             modEventBus.addListener((RegisterEvent event) -> MekanismFanType.init());
         }
 
-        // 通用机械
-        if (ModList.get().isLoaded("mekanism")) {
+        // 沉浸工程
+        if (ModList.get().isLoaded("immersiveengineering")) {
             ImmersiveEngineeringFanRecipeType.register(modEventBus);
             modEventBus.addListener((RegisterEvent event) -> ImmersiveEngineeringFanType.init());
+        }
+
+        // 铁砧工艺
+        if (ModList.get().isLoaded("anvilcraft")) {
+            AnvilcraftFanRecipeType.register(modEventBus);
+            modEventBus.addListener((RegisterEvent event) -> AnvilcraftFanType.init());
         }
 
         modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);

@@ -17,6 +17,9 @@ public interface ModBlockTags {
     TagKey<Block> FAN_CATALYSTS_SAND_BLOW = fanBlockTag("fan_catalysts/sand_blow"); // 批量扬砂
     TagKey<Block> FAN_CATALYSTS_BREATHED_WIND = fanBlockTag("fan_catalysts/breathed_wind"); // 批量吐息
     TagKey<Block> FAN_CATALYSTS_EXPLODING = fanBlockTag("fan_catalysts/exploding"); // 批量爆炸
+    TagKey<Block> FAN_CATALYSTS_TIDAL = fanBlockTag("fan_catalysts/tidal"); // 批量海潮
+    TagKey<Block> FAN_CATALYSTS_TEAR = fanBlockTag("fan_catalysts/tear"); // 批量催泪
+    TagKey<Block> FAN_CATALYSTS_MOSSIFY = fanBlockTag("fan_catalysts/mossify"); // 批量苔化
     TagKey<Block> FAN_CATALYSTS_HONEY_COATING = fanBlockTag("fan_catalysts/honey_coating"); // 批量裹蜜
     TagKey<Block> FAN_CATALYSTS_CHOCOLATE_COATING = fanBlockTag("fan_catalysts/chocolate_coating"); // 批量凝巧
 
@@ -30,6 +33,8 @@ public interface ModBlockTags {
     TagKey<Block> FAN_CATALYSTS_FERMENT = fanBlockTag("fan_catalysts/ferment"); // 批量发酵
 
     TagKey<Block> FAN_CATALYSTS_PRESERVATION = fanBlockTag("fan_catalysts/preservation"); // 批量防腐
+
+    TagKey<Block> FAN_CATALYSTS_CORRUPTED = fanBlockTag("fan_catalysts/corrupted"); // 批量腐化
 
     static TagKey<Block> fanBlockTag(String name) {
         return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(CreateMoreCatalysts.MOD_ID, name));

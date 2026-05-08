@@ -94,6 +94,69 @@ public final class FanProcessingSounds {
     }
 
     /**
+     * 播放爆炸音效
+     * @param level 世界实例
+     * @param pos 音效播放位置
+     */
+    public static void explodingSound(Level level, BlockPos pos) {
+        if (shouldNotPlayOnTick(level, pos, 32, 49)) return;
+        playLayered(level, pos,
+                SoundEvents.CREEPER_PRIMED, 0.3f, 1.0f, 1.2f,
+                SoundEvents.TNT_PRIMED, 0.15f, 0.9f, 1.1f);
+    }
+
+    /**
+     * 播放裹蜜音效
+     * @param level 世界实例
+     * @param pos 音效播放位置
+     */
+    public static void honeyCoatingSound(Level level, BlockPos pos) {
+        if (shouldNotPlayOnTick(level, pos, 30, 51)) return;
+        playLayered(level, pos,
+                SoundEvents.HONEY_BLOCK_PLACE, 0.3f, 1.0f, 1.2f,
+                SoundEvents.HONEY_DRINK, 0.15f, 0.9f, 1.1f);
+    }
+
+    /**
+     * 播放凝巧音效
+     * @param level 世界实例
+     * @param pos 音效播放位置
+     */
+    public static void chocolateCoatingSound(Level level, BlockPos pos) {
+        if (shouldNotPlayOnTick(level, pos, 30, 57)) return;
+        playLayered(level, pos,
+                SoundEvents.HONEY_DRINK, 0.3f, 1.0f, 1.2f,
+                SoundEvents.CAKE_ADD_CANDLE, 0.15f, 0.9f, 1.1f);
+    }
+
+    /**
+     * 播放海潮音效
+     * @param level 世界实例
+     * @param pos 音效播放位置
+     */
+    public static void tidalSound(Level level, BlockPos pos) {
+        if (shouldNotPlayOnTick(level, pos, 28, 71)) return;
+        playLayered(level, pos,
+                SoundEvents.CONDUIT_AMBIENT, 0.3f, 1.0f, 1.2f,
+                SoundEvents.CONDUIT_ACTIVATE, 0.15f, 0.9f, 1.1f);
+    }
+
+    /**
+     * 播放催泪音效
+     * @param level 世界实例
+     * @param pos 音效播放位置
+     */
+    public static void tearSound(Level level, BlockPos pos) {
+        if (shouldNotPlayOnTick(level, pos, 30, 73)) return;
+        playLayered(level, pos,
+                SoundEvents.VEX_AMBIENT, 0.3f, 1.0f, 1.2f,
+                SoundEvents.GHAST_HURT, 0.15f, 0.9f, 1.1f);
+    }
+
+
+    // =============================== 联动 ===============================
+
+    /**
      * 播放盐析音效
      * @param level 世界实例
      * @param pos 音效播放位置
@@ -190,15 +253,27 @@ public final class FanProcessingSounds {
     }
 
     /**
-     * 播放成型音效
+     * 播放腐化音效
      * @param level 世界实例
      * @param pos 音效播放位置
      */
-    public static void moldingSound(Level level, BlockPos pos) {
-        if (shouldNotPlayOnTick(level, pos, 30, 63)) return;
+    public static void corruptedSound(Level level, BlockPos pos) {
+        if (shouldNotPlayOnTick(level, pos, 30, 75)) return;
         playLayered(level, pos,
-                SoundEvents.STONE_PLACE, 0.3f, 1.0f, 1.2f,
-                SoundEvents.GRAVEL_PLACE, 0.15f, 0.9f, 1.1f);
+                SoundEvents.BEACON_DEACTIVATE, 0.3f, 1.0f, 1.2f,
+                SoundEvents.WITHER_SPAWN, 0.15f, 0.9f, 1.1f);
+    }
+
+    /**
+     * 播放苔化音效
+     * @param level 世界实例
+     * @param pos 音效播放位置
+     */
+    public static void mossifySound(Level level, BlockPos pos) {
+        if (shouldNotPlayOnTick(level, pos, 30, 77)) return;
+        playLayered(level, pos,
+                SoundEvents.MOSS_PLACE, 0.3f, 1.0f, 1.2f,
+                SoundEvents.GRASS_PLACE, 0.15f, 0.9f, 1.1f);
     }
 
     /**

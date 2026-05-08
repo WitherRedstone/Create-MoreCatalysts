@@ -1,0 +1,34 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "anvilcraft"
+        },
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "l2hostility"
+        }
+      ]
+    }
+  ],
+  "type": "create_more_catalysts:corrupted",
+  "ingredients": [
+    {
+      "tag": "c:foods/raw_meat"
+    }
+  ],
+  "results": [
+    {
+      "count": 4,
+      "id": "minecraft:rotten_flesh"
+    },
+    {
+      "chance": 0.25,
+      "count": 2,
+      "id": "minecraft:rotten_flesh"
+    }
+  ]
+}

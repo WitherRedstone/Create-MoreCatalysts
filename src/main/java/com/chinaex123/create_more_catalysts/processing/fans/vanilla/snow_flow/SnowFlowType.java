@@ -9,21 +9,21 @@ import com.chinaex123.create_more_catalysts.processing.fans.FanProcessingSounds;
 import com.chinaex123.create_more_catalysts.init.FanRecipeType;
 import com.chinaex123.create_more_catalysts.init.ModBlockTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * 批量雪流鼓风机类型
@@ -36,11 +36,13 @@ public final class SnowFlowType extends FanCommonType {
     private static final Map<EntityType<?>, EntityType<?>> TRANSFORM_MAP = new HashMap<>();
     private static final Map<EntityType<?>, Float> HEAL_MAP = new HashMap<>();
     private static boolean CONFIG_LOADED = false;
+    private static final List<SnowFlowType.PotionEffectEntry> POTION_EFFECTS = new ArrayList<>();
 
     private static synchronized void ensureConfigLoaded() {
         if (CONFIG_LOADED) return;
         loadTransformConfig();
         loadHealConfig();
+        loadPotionEffectsConfig();
         CONFIG_LOADED = true;
     }
 
@@ -62,16 +64,20 @@ public final class SnowFlowType extends FanCommonType {
         for (String transform : transforms) {
             String[] parts = transform.split("->");
             if (parts.length == 2) {
-                ResourceLocation inputLoc = ResourceLocation.tryParse(parts[0].trim());
-                ResourceLocation outputLoc = ResourceLocation.tryParse(parts[1].trim());
 
-                if (inputLoc != null && outputLoc != null) {
-                    Optional<EntityType<?>> inputType = BuiltInRegistries.ENTITY_TYPE.getOptional(inputLoc);
-                    Optional<EntityType<?>> outputType = BuiltInRegistries.ENTITY_TYPE.getOptional(outputLoc);
+                try {
+                    ResourceLocation inputLoc = ResourceLocation.tryParse(parts[0].trim());
+                    ResourceLocation outputLoc = ResourceLocation.tryParse(parts[1].trim());
+                    if (inputLoc != null && outputLoc != null) {
+                        Optional<EntityType<?>> inputType = BuiltInRegistries.ENTITY_TYPE.getOptional(inputLoc);
+                        Optional<EntityType<?>> outputType = BuiltInRegistries.ENTITY_TYPE.getOptional(outputLoc);
 
-                    if (inputType.isPresent() && outputType.isPresent()) {
-                        TRANSFORM_MAP.put(inputType.get(), outputType.get());
+                        if (inputType.isPresent() && outputType.isPresent()) {
+                            TRANSFORM_MAP.put(inputType.get(), outputType.get());
+                        }
                     }
+                } catch (Exception e) {
+                    CreateMoreCatalysts.LOGGER.warn("[Batch Snow Flow]Invalid entity transform config: {}", transform);
                 }
             }
         }
@@ -93,7 +99,35 @@ public final class SnowFlowType extends FanCommonType {
                         entityType.ifPresent(type -> HEAL_MAP.put(type, healAmount));
                     }
                 } catch (NumberFormatException e) {
-                    CreateMoreCatalysts.LOGGER.warn("Invalid heal amount in snow flow config: {}", heal);
+                    String entityName = parts[0].trim();
+                    String healValueStr = parts[1].trim();
+                    CreateMoreCatalysts.LOGGER.warn("[Batch Snow Flow]Invalid heal amount for {}: {} (must be a number)", entityName, healValueStr);
+                }
+            }
+        }
+    }
+
+    /**
+     * 从配置文件加载状态效果规则
+     */
+    private static void loadPotionEffectsConfig() {
+        POTION_EFFECTS.clear();
+        List<? extends String> effects = CommonConfig.SNOW_FLOW_POTION_EFFECTS.get();
+        for (String effect : effects) {
+            String[] parts = effect.trim().split("\\s+");
+            if (parts.length >= 3) {
+
+                try {
+                    ResourceLocation effectLoc = ResourceLocation.tryParse(parts[0]);
+                    int duration = Integer.parseInt(parts[1]);
+                    int amplifier = Integer.parseInt(parts[2]);
+
+                    if (effectLoc != null) {
+                        BuiltInRegistries.MOB_EFFECT.getHolder(effectLoc).ifPresent(eff ->
+                                POTION_EFFECTS.add(new SnowFlowType.PotionEffectEntry(eff, duration, amplifier)));
+                    }
+                } catch (NumberFormatException e) {
+                    CreateMoreCatalysts.LOGGER.warn("[Batch Snow Flow]Invalid potion effect config: {}", effect);
                 }
             }
         }
@@ -183,10 +217,20 @@ public final class SnowFlowType extends FanCommonType {
             living.heal(healAmount);
         }
 
-        // 让实体进入细雪状态（开始冻结）
+        // 为配置的实体施加状态效果
+        for (SnowFlowType.PotionEffectEntry entry : POTION_EFFECTS) {
+            MobEffectInstance currentEffect = living.getEffect(entry.effect);
+            if (currentEffect == null || currentEffect.getDuration() < 20) {
+                living.addEffect(new MobEffectInstance(entry.effect, entry.duration, entry.amplifier, false, false));
+            }
+        }
+
+        // 让实体进入细雪状态
         living.setTicksFrozen(living.getTicksRequiredToFreeze() + 20);
 
-        // 播放雪流音效
+        // 播放音效
         FanProcessingSounds.snowFlowSound(level, living.blockPosition());
     }
+
+    private record PotionEffectEntry(Holder.Reference<MobEffect> effect, int duration, int amplifier) {}
 }

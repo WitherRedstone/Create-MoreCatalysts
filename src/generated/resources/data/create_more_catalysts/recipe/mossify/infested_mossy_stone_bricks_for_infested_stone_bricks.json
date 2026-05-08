@@ -1,0 +1,13 @@
+{
+  "type": "create_more_catalysts:mossify",
+  "ingredients": [
+    {
+      "item": "minecraft:infested_stone_bricks"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:infested_mossy_stone_bricks"
+    }
+  ]
+}

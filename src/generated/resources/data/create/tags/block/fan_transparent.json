@@ -8,6 +8,9 @@
     "#create_more_catalysts:fan_catalysts/sand_blow",
     "#create_more_catalysts:fan_catalysts/breathed_wind",
     "#create_more_catalysts:fan_catalysts/exploding",
+    "#create_more_catalysts:fan_catalysts/tidal",
+    "#create_more_catalysts:fan_catalysts/tear",
+    "#create_more_catalysts:fan_catalysts/mossify",
     "#create_more_catalysts:fan_catalysts/honey_coating",
     "#create_more_catalysts:fan_catalysts/chocolate_coating",
     "#create_more_catalysts:fan_catalysts/salout",
@@ -17,6 +20,7 @@
     "#create_more_catalysts:fan_catalysts/oxidize",
     "#create_more_catalysts:fan_catalysts/reduce",
     "#create_more_catalysts:fan_catalysts/ferment",
-    "#create_more_catalysts:fan_catalysts/preservation"
+    "#create_more_catalysts:fan_catalysts/preservation",
+    "#create_more_catalysts:fan_catalysts/corrupted"
   ]
 }

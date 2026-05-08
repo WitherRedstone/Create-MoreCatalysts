@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * 通用机械鼓风机加工类型基类
+ * 沉浸工程通鼓风机加工类型基类
  */
 public abstract class ImmersiveEngineeringFanCommonType implements FanProcessingType {
 

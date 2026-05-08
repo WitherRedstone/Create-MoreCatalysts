@@ -20,13 +20,13 @@ public class SculkingRecipeGen extends FanRecipeGen<FanRecipe> {
 
     {
         // 任何羊毛 → 幽匿块
-        create(CreateMoreCatalysts.id("sculking/sculk_from_wools"), builder ->
+        create(CreateMoreCatalysts.id("sculk_from_wools"), builder ->
                 builder.withItemIngredients(Ingredient.of(ModItemTags.WOOLS)).output(0.75F, Items.SCULK));
 
         // 紫水晶碎片 → 回响碎片
-        convert(() -> Ingredient.of(Tags.Items.GEMS_AMETHYST), () -> Items.SCULK, 0.75F);
-        // 纸 → 砂纸
-        convert(Items.AMETHYST_SHARD , Items.ECHO_SHARD);
+        convert(() -> Ingredient.of(Tags.Items.GEMS_AMETHYST), () -> Items.ECHO_SHARD, 0.75F);
+        // 藤蔓 → 幽匿脉络
+        convert(Items.VINE, Items.SCULK_VEIN);
     }
 
     /**

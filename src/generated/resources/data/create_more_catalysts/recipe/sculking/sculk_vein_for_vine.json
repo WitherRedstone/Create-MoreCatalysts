@@ -2,13 +2,12 @@
   "type": "create_more_catalysts:sculking",
   "ingredients": [
     {
-      "tag": "c:gems/amethyst"
+      "item": "minecraft:vine"
     }
   ],
   "results": [
     {
-      "chance": 0.75,
-      "id": "minecraft:sculk"
+      "id": "minecraft:sculk_vein"
     }
   ]
 }

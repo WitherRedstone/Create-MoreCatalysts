@@ -18,12 +18,15 @@ import java.util.concurrent.CompletableFuture;
 public class BreathedWindRecipeGen extends FanRecipeGen<FanRecipe> {
 
     {
-        // 附魔之瓶 → 龙息
-        convert(Items.EXPERIENCE_BOTTLE, Items.DRAGON_BREATH);
         // 甜浆果 → 紫颂果
         convert(() -> Ingredient.of(Tags.Items.FOODS_BERRY), () -> Items.CHORUS_FRUIT);
         // 皮革 → 幻翼膜
         convert(() -> Ingredient.of(Tags.Items.LEATHERS), () -> Items.PHANTOM_MEMBRANE);
+
+        // 附魔之瓶 → 龙息
+        convert(Items.EXPERIENCE_BOTTLE, Items.DRAGON_BREATH);
+        // 圆石 → 末地石
+        convert(Items.COBBLESTONE, Items.END_STONE);
     }
 
     /**
