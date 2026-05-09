@@ -1,0 +1,13 @@
+{
+  "type": "create_more_catalysts:chocolate_coating",
+  "ingredients": [
+    {
+      "item": "minecraft:sweet_berries"
+    }
+  ],
+  "results": [
+    {
+      "item": "create:chocolate_glazed_berries"
+    }
+  ]
+}

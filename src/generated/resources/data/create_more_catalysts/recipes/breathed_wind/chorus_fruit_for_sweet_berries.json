@@ -1,0 +1,13 @@
+{
+  "type": "create_more_catalysts:breathed_wind",
+  "ingredients": [
+    {
+      "item": "minecraft:sweet_berries"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:chorus_fruit"
+    }
+  ]
+}

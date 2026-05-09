@@ -1,0 +1,16 @@
+{
+  "type": "create_more_catalysts:sand_blow",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    }
+  ],
+  "results": [
+    {
+      "item": "create:sand_paper",
+      "nbt": {
+        "Damage": 0
+      }
+    }
+  ]
+}

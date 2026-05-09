@@ -1,0 +1,13 @@
+{
+  "type": "create_more_catalysts:resonance",
+  "ingredients": [
+    {
+      "item": "minecraft:repeater"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:comparator"
+    }
+  ]
+}

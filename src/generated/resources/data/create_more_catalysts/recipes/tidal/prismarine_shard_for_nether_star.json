@@ -1,0 +1,19 @@
+{
+  "type": "create_more_catalysts:tidal",
+  "ingredients": [
+    {
+      "item": "minecraft:sand"
+    }
+  ],
+  "results": [
+    {
+      "chance": 0.5,
+      "count": 2,
+      "item": "minecraft:prismarine_shard"
+    },
+    {
+      "chance": 0.25,
+      "item": "minecraft:prismarine_crystals"
+    }
+  ]
+}

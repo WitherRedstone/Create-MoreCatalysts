@@ -1,0 +1,14 @@
+{
+  "type": "create_more_catalysts:resonance",
+  "ingredients": [
+    {
+      "tag": "forge:gems/quartz"
+    }
+  ],
+  "results": [
+    {
+      "chance": 0.25,
+      "item": "minecraft:amethyst_shard"
+    }
+  ]
+}

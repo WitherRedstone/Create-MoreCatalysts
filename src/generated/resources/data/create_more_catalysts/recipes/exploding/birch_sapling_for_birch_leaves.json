@@ -1,0 +1,14 @@
+{
+  "type": "create_more_catalysts:exploding",
+  "ingredients": [
+    {
+      "item": "minecraft:birch_leaves"
+    }
+  ],
+  "results": [
+    {
+      "chance": 0.25,
+      "item": "minecraft:birch_sapling"
+    }
+  ]
+}

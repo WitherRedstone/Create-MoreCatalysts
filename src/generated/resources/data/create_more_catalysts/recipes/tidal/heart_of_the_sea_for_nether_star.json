@@ -1,0 +1,13 @@
+{
+  "type": "create_more_catalysts:tidal",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_star"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:heart_of_the_sea"
+    }
+  ]
+}

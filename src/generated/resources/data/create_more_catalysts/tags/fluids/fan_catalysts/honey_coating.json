@@ -1,0 +1,9 @@
+{
+  "values": [
+    "create:flowing_honey",
+    {
+      "id": "#forge:honey",
+      "required": false
+    }
+  ]
+}

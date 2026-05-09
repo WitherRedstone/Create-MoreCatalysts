@@ -1,0 +1,13 @@
+{
+  "type": "create_more_catalysts:mossify",
+  "ingredients": [
+    {
+      "item": "minecraft:dirt"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:moss_block"
+    }
+  ]
+}

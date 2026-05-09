@@ -1,0 +1,13 @@
+{
+  "type": "create_more_catalysts:purifying",
+  "ingredients": [
+    {
+      "item": "minecraft:poisonous_potato"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:potato"
+    }
+  ]
+}
