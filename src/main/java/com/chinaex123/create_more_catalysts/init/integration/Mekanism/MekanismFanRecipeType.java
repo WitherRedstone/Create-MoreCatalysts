@@ -25,32 +25,32 @@ public final class MekanismFanRecipeType {
     private static final DeferredRegister<RecipeType<?>> TYPE_REGISTER = DeferredRegister.create(Registries.RECIPE_TYPE, CreateMoreCatalysts.MOD_ID);
 
     // =============================== 模组联动内容 ===============================
-    public static RecipeTypeEntry SALOUT; // 鼓风机 - 批量盐析
-    public static RecipeTypeEntry ETCH; // 鼓风机 - 批量盐析
-    public static RecipeTypeEntry SULFON; // 鼓风机 - 批量磺化
-    public static RecipeTypeEntry DEHYD; // 鼓风机 - 批量脱水
-    public static RecipeTypeEntry OXIDIZE; // 鼓风机 - 批量氧化
-    public static RecipeTypeEntry REDUCE; // 鼓风机 - 批量还原
-    public static RecipeTypeEntry FERMENT; // 鼓风机 - 批量发酵
+    public static RecipeTypeEntry SALOUT; // 批量盐析
+    public static RecipeTypeEntry ETCH; // 批量盐析
+    public static RecipeTypeEntry SULFON; // 批量磺化
+    public static RecipeTypeEntry DEHYD; // 批量脱水
+    public static RecipeTypeEntry OXIDIZE; // 批量氧化
+    public static RecipeTypeEntry REDUCE; // 批量还原
+    public static RecipeTypeEntry FERMENT; // 批量发酵
 
 
     /*
       静态初始化块：注册所有鼓风机配方类型
      */
     static {
-        // 鼓风机 - 批量盐析
+        // 批量盐析
         SALOUT = registerStandard("salout", params -> new FanRecipe(SALOUT, params));
-        // 鼓风机 - 批量蚀刻
+        // 批量蚀刻
         ETCH = registerStandard("etch", params -> new FanRecipe(ETCH, params));
-        // 鼓风机 - 批量磺化
+        // 批量磺化
         SULFON = registerStandard("sulfon", params -> new FanRecipe(SULFON, params));
-        // 鼓风机 - 批量脱水
+        // 批量脱水
         DEHYD = registerStandard("dehyd", params -> new FanRecipe(DEHYD, params));
-        // 鼓风机 - 批量氧化
+        // 批量氧化
         OXIDIZE = registerStandard("oxidize", params -> new FanRecipe(OXIDIZE, params));
-        // 鼓风机 - 批量还原
+        // 批量还原
         REDUCE = registerStandard("reduce", params -> new FanRecipe(REDUCE, params));
-        // 鼓风机 - 批量发酵
+        // 批量发酵
         FERMENT = registerStandard("ferment", params -> new FanRecipe(FERMENT, params));
 
 

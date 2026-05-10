@@ -9,6 +9,9 @@ import com.simibubi.create.AllItems;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.jei.category.ProcessingViaFanCategory;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
+import mezz.jei.api.registration.IRecipeCategoryRegistration;
+import mezz.jei.api.registration.IRecipeRegistration;
 import net.createmod.catnip.gui.element.GuiGameElement;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
@@ -34,7 +37,7 @@ public final class FanJeiCategories {
      * 注册所有配方类别到 JEI
      * @param registration JEI 类别注册器
      */
-    public void registerCategories(mezz.jei.api.registration.IRecipeCategoryRegistration registration) {
+    public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(categories.toArray(CreateRecipeCategory[]::new));
     }
 
@@ -42,7 +45,7 @@ public final class FanJeiCategories {
      * 注册所有配方到 JEI
      * @param registration JEI 配方注册器
      */
-    public void registerRecipes(mezz.jei.api.registration.IRecipeRegistration registration) {
+    public void registerRecipes(IRecipeRegistration registration) {
         categories.forEach(cat -> cat.registerRecipes(registration));
     }
 
@@ -50,7 +53,7 @@ public final class FanJeiCategories {
      * 注册所有催化剂到 JEI
      * @param registration JEI 催化剂注册器
      */
-    public void registerRecipeCatalysts(mezz.jei.api.registration.IRecipeCatalystRegistration registration) {
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         categories.forEach(cat -> cat.registerCatalysts(registration));
     }
 

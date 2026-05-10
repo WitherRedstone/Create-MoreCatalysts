@@ -36,7 +36,7 @@ public final class DehydType extends MekanismFanCommonType {
     private static final Map<EntityType<?>, EntityType<?>> TRANSFORM_MAP = new HashMap<>();
     private static final Map<EntityType<?>, Float> HEAL_MAP = new HashMap<>();
     private static boolean CONFIG_LOADED = false;
-    private static final List<DehydType.PotionEffectEntry> POTION_EFFECTS = new ArrayList<>();
+    private static final List<PotionEffectEntry> POTION_EFFECTS = new ArrayList<>();
 
     private static synchronized void ensureConfigLoaded() {
         if (CONFIG_LOADED) return;
@@ -125,7 +125,7 @@ public final class DehydType extends MekanismFanCommonType {
 
                     if (effectLoc != null) {
                         BuiltInRegistries.MOB_EFFECT.getHolder(effectLoc).ifPresent(eff ->
-                                POTION_EFFECTS.add(new DehydType.PotionEffectEntry(eff, duration, amplifier)));
+                                POTION_EFFECTS.add(new PotionEffectEntry(eff, duration, amplifier)));
                     }
                 } catch (NumberFormatException e) {
                     CreateMoreCatalysts.LOGGER.warn("[Batch Preservation]Invalid potion effect config: {}", effect);
@@ -217,7 +217,7 @@ public final class DehydType extends MekanismFanCommonType {
         }
 
         // 为配置的实体施加状态效果
-        for (DehydType.PotionEffectEntry entry : POTION_EFFECTS) {
+        for (PotionEffectEntry entry : POTION_EFFECTS) {
             MobEffectInstance currentEffect = living.getEffect(entry.effect);
             if (currentEffect == null || currentEffect.getDuration() < 20) {
                 living.addEffect(new MobEffectInstance(entry.effect, entry.duration, entry.amplifier, false, false));
