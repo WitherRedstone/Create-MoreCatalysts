@@ -1,0 +1,8 @@
+{
+  "values": [
+    {
+      "id": "mekanism:block_salt",
+      "required": false
+    }
+  ]
+}

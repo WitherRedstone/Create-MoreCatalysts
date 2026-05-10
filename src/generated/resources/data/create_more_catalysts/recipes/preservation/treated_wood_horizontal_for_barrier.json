@@ -1,0 +1,19 @@
+{
+  "type": "create_more_catalysts:preservation",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ],
+  "ingredients": [
+    {
+      "tag": "minecraft:planks"
+    }
+  ],
+  "results": [
+    {
+      "item": "immersiveengineering:treated_wood_horizontal"
+    }
+  ]
+}

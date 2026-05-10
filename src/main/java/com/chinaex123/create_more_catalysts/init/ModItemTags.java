@@ -9,10 +9,10 @@ import net.minecraft.world.level.block.Block;
 
 public interface ModItemTags {
 
-    TagKey<Item> WOOLS = neoforgeTag("wools");
-    TagKey<Item> FOODS_RAW_MEAT = neoforgeTag("food/raw_meat");
+    TagKey<Item> WOOLS = forgeTag("wools");
+    TagKey<Item> FOODS_RAW_MEAT = forgeTag("food/raw_meat");
 
-    static TagKey<Item> neoforgeTag(String name) {
-        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", name));
+    static TagKey<Item> forgeTag(String name) {
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("forge", name));
     }
 }

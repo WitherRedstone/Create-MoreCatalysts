@@ -44,7 +44,7 @@ public class CreateMoreCatalysts {
         }
 
         // 铁砧工艺
-        if (ModList.get().isLoaded("anvilcraft")) {
+        if (ModList.get().isLoaded("anvilcraft") || ModList.get().isLoaded("l2hostility")) {
             AnvilcraftFanRecipeType.register(modEventBus);
             modEventBus.addListener((RegisterEvent event) -> AnvilcraftFanType.init());
         }

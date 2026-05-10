@@ -1,0 +1,29 @@
+{
+  "type": "create_more_catalysts:corrupted",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "anvilcraft"
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "l2hostility"
+    }
+  ],
+  "ingredients": [
+    {
+      "tag": "forge:food/raw_meat"
+    }
+  ],
+  "results": [
+    {
+      "count": 4,
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "chance": 0.25,
+      "count": 2,
+      "item": "minecraft:rotten_flesh"
+    }
+  ]
+}

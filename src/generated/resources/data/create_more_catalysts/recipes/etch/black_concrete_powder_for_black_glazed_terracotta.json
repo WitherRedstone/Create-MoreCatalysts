@@ -1,0 +1,19 @@
+{
+  "type": "create_more_catalysts:etch",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:black_glazed_terracotta"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:black_concrete_powder"
+    }
+  ]
+}

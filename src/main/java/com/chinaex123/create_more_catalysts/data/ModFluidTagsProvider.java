@@ -89,9 +89,9 @@ public class ModFluidTagsProvider extends FluidTagsProvider {
             tag(ModFluidTags.FAN_CATALYSTS_PRESERVATION);
         }
 
-        if (ModList.get().isLoaded("anvilcraft") || ModList.get().isLoaded("l2hostility")) {
+//        if (ModList.get().isLoaded("anvilcraft") || ModList.get().isLoaded("l2hostility")) {
             // 批量腐化
             tag(ModFluidTags.FAN_CATALYSTS_CORRUPTED);
-        }
+//        }
     }
 }

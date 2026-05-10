@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "anvilcraft:corrupted_beacon",
+      "required": false
+    },
+    {
+      "id": "l2hostility:hostility_beacon",
+      "required": false
+    }
+  ]
+}

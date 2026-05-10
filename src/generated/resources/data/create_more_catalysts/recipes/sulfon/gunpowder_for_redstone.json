@@ -1,0 +1,19 @@
+{
+  "type": "create_more_catalysts:sulfon",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:redstone"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:gunpowder"
+    }
+  ]
+}

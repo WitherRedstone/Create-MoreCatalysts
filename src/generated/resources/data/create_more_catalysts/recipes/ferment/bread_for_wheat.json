@@ -1,0 +1,19 @@
+{
+  "type": "create_more_catalysts:ferment",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanismgenerators"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:wheat"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:bread"
+    }
+  ]
+}

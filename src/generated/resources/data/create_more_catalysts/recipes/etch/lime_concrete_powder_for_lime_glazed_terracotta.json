@@ -1,0 +1,19 @@
+{
+  "type": "create_more_catalysts:etch",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:lime_glazed_terracotta"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:lime_concrete_powder"
+    }
+  ]
+}

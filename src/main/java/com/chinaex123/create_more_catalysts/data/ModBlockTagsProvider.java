@@ -118,7 +118,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                     .addTag(ModBlockTags.FAN_CATALYSTS_PRESERVATION); // 批量防腐
         }
 
-        if (ModList.get().isLoaded("anvilcraft") || ModList.get().isLoaded("l2hostility")) {
+//        if (ModList.get().isLoaded("anvilcraft") || ModList.get().isLoaded("l2hostility")) {
             // 批量腐化
             tag(ModBlockTags.FAN_CATALYSTS_CORRUPTED)
                     .addOptional(ResourceLocation.fromNamespaceAndPath("anvilcraft", "corrupted_beacon"))
@@ -127,6 +127,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
             // 鼓风机气流可以穿透的方块
             tag(AllTags.AllBlockTags.FAN_TRANSPARENT.tag)
                     .addTag(ModBlockTags.FAN_CATALYSTS_CORRUPTED); // 批量腐化
-        }
+//        }
     }
 }

@@ -1,0 +1,19 @@
+{
+  "type": "create_more_catalysts:oxidize",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:cut_copper"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:oxidized_cut_copper"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "create_more_catalysts:salout",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:calcite"
+    }
+  ],
+  "results": [
+    {
+      "count": 3,
+      "item": "mekanism:salt"
+    },
+    {
+      "chance": 0.25,
+      "count": 2,
+      "item": "mekanism:salt"
+    }
+  ]
+}

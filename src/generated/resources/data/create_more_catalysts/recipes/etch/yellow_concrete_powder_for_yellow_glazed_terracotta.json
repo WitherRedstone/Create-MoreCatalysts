@@ -1,0 +1,19 @@
+{
+  "type": "create_more_catalysts:etch",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:yellow_glazed_terracotta"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:yellow_concrete_powder"
+    }
+  ]
+}

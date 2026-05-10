@@ -2,7 +2,7 @@
   "type": "create_more_catalysts:sculking",
   "ingredients": [
     {
-      "tag": "c:wools"
+      "tag": "forge:wools"
     }
   ],
   "results": [
