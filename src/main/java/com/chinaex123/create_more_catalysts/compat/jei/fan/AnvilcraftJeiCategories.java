@@ -131,7 +131,7 @@ public class AnvilcraftJeiCategories {
                     if (Minecraft.getInstance().level != null) {
                         return Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(recipeType.getType());
                     }
-                    return java.util.List.of();
+                    return List.of();
                 },
                 List.of(fanStackSupplier, catalystStackSupplier)
         );
@@ -165,7 +165,7 @@ public class AnvilcraftJeiCategories {
                     if (Minecraft.getInstance().level != null) {
                         return Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(recipeType.getType());
                     }
-                    return java.util.List.of();
+                    return List.of();
                 },
                 List.of(fanStackSupplier, catalystStackSupplier)
         );
