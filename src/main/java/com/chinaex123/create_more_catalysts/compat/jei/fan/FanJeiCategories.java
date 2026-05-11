@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -263,7 +264,7 @@ public final class FanJeiCategories {
          * @param graphics GUI 图形上下文
          */
         @Override
-        protected void renderAttachedBlock(GuiGraphics graphics) {
+        protected void renderAttachedBlock(@NotNull GuiGraphics graphics) {
             GuiGameElement.of(catalystBlock)
                     .scale(SCALE)
                     .atLocal(0, 0, 2)
@@ -285,7 +286,7 @@ public final class FanJeiCategories {
         }
 
         @Override
-        protected void renderAttachedBlock(GuiGraphics graphics) {
+        protected void renderAttachedBlock(@NotNull GuiGraphics graphics) {
             GuiGameElement.of(new SkullBlockEntity(BlockPos.ZERO, catalystBlock))
                     .rotateBlock(0, 180, 0)
                     .scale(SCALE)
@@ -307,7 +308,7 @@ public final class FanJeiCategories {
         }
 
         @Override
-        protected void renderAttachedBlock(GuiGraphics graphics) {
+        protected void renderAttachedBlock(@NotNull GuiGraphics graphics) {
             conduit.draw(graphics, 0, 0);
         }
     }

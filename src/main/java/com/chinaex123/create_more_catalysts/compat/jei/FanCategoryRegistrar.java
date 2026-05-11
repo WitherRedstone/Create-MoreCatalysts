@@ -46,7 +46,7 @@ public final class FanCategoryRegistrar {
         // 批量净化
         fanCategories.addBlockCategory("fan_purifying", FanRecipeType.PURIFYING, Blocks.BEACON);
         // 批量幽匿
-        fanCategories.addBlockCategory("fan_sculking", FanRecipeType.SCULKING, Blocks.SCULK);
+        fanCategories.addBlockCategory("fan_sculking", FanRecipeType.SCULKING, Blocks.SCULK_CATALYST);
         // 批量共振
         fanCategories.addBlockCategory("fan_resonance", FanRecipeType.RESONANCE, Blocks.AMETHYST_CLUSTER);
         // 批量扬砂

@@ -22,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -169,7 +170,7 @@ public final class MekanismJeiCategories {
          * @param graphics GUI 图形上下文
          */
         @Override
-        protected void renderAttachedBlock(GuiGraphics graphics) {
+        protected void renderAttachedBlock(@NotNull GuiGraphics graphics) {
             GuiGameElement.of(catalystBlock)
                     .scale(SCALE)
                     .atLocal(0, 0, 2)
