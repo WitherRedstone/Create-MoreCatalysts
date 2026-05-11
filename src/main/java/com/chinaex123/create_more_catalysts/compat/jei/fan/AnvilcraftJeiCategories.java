@@ -30,7 +30,6 @@ import java.util.function.Supplier;
 /**
  * 铁砧工艺联动配方类别管理器：负责注册和管理 Anvilcraft 联动的鼓风机加工 JEI 配方类别
  */
-
 public class AnvilcraftJeiCategories {
 
     private final List<CreateRecipeCategory<?>> categories = new ArrayList<>();
@@ -80,7 +79,7 @@ public class AnvilcraftJeiCategories {
     }
 
     /**
-     * 构建通用机械鼓风机加工配方类别（方块催化剂）
+     * 构建铁砧工艺鼓风机加工配方类别（方块催化剂）
      * @param name 类别名称标识
      * @param recipeType 配方类型入口
      * @param catalystBlock 催化剂方块
@@ -96,10 +95,13 @@ public class AnvilcraftJeiCategories {
                 FanRecipe.class
         );
 
+        Supplier<ItemStack> catalystStackSupplier = () -> new ItemStack(catalystBlock);
+        Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
+
         return new AnvilcraftFanProcessingCategory(
                 new CreateRecipeCategory.Info(
                         jeiType,
-                        Component.translatable("create_more_catalysts.recipe." + name),
+                        Component.translatable("create_more_catalysts.recipe.anvilcraft." + name),
                         new EmptyBackground(178, 72),
                         new DoubleItemIcon(() -> new ItemStack(AllItems.PROPELLER.get()), () -> new ItemStack(catalystBlock)),
                         () -> {
@@ -107,14 +109,14 @@ public class AnvilcraftJeiCategories {
                             CreateJEI.consumeTypedRecipes(recipe -> recipes.add((FanRecipe) recipe), recipeType.getType());
                             return recipes;
                         },
-                        List.of((Supplier) AllBlocks.ENCASED_FAN::asStack)
+                        List.of(fanStackSupplier, catalystStackSupplier)
                 ),
                 catalystBlock.defaultBlockState()
         );
     }
 
     /**
-     * 构建通用机械鼓风机加工配方类别（流体催化剂）
+     * 构建铁砧工艺鼓风机加工配方类别（流体催化剂）
      * @param name 类别名称标识
      * @param recipeType 配方类型入口
      * @param catalystFluid 催化剂流体
@@ -130,10 +132,13 @@ public class AnvilcraftJeiCategories {
                 FanRecipe.class
         );
 
+        Supplier<ItemStack> catalystStackSupplier = () -> new ItemStack(catalystFluid.getBucket());
+        Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
+
         return new AnvilcraftFanProcessingCategory(
                 new CreateRecipeCategory.Info(
                         jeiType,
-                        Component.translatable("create_more_catalysts.recipe." + name),
+                        Component.translatable("create_more_catalysts.recipe.anvilcraft." + name),
                         new EmptyBackground(178, 72),
                         new DoubleItemIcon(() -> new ItemStack(AllItems.PROPELLER.get()), () -> new ItemStack(catalystFluid.getBucket())),
                         () -> {
@@ -141,14 +146,14 @@ public class AnvilcraftJeiCategories {
                             CreateJEI.consumeTypedRecipes(recipe -> recipes.add((FanRecipe) recipe), recipeType.getType());
                             return recipes;
                         },
-                        List.of((Supplier) AllBlocks.ENCASED_FAN::asStack)
+                        List.of(fanStackSupplier, catalystStackSupplier)
                 ),
                 catalystFluid.defaultFluidState().createLegacyBlock()
         );
     }
 
     /**
-     * 通用机械鼓风机加工配方渲染类：负责渲染催化剂方块
+     * 铁砧工艺鼓风机加工配方渲染类：负责渲染催化剂方块
      */
     private static final class AnvilcraftFanProcessingCategory extends ProcessingViaFanCategory.MultiOutput<FanRecipe> {
 

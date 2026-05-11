@@ -96,10 +96,13 @@ public class ImmersiveEngineeringJeiCategories {
                 FanRecipe.class
         );
 
+        Supplier<ItemStack> catalystStackSupplier = () -> new ItemStack(catalystBlock);
+        Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
+
         return new ImmersiveEngineeringFanProcessingCategory(
                 new CreateRecipeCategory.Info(
                         jeiType,
-                        Component.translatable("create_more_catalysts.recipe." + name),
+                        Component.translatable("create_more_catalysts.recipe.immersiveengineering." + name),
                         new EmptyBackground(178, 72),
                         new DoubleItemIcon(() -> new ItemStack(AllItems.PROPELLER.get()), () -> new ItemStack(catalystBlock)),
                         (() -> {
@@ -107,7 +110,7 @@ public class ImmersiveEngineeringJeiCategories {
                             CreateJEI.consumeTypedRecipes(recipe -> recipes.add((FanRecipe) recipe), recipeType.getType());
                             return recipes;
                         }),
-                        List.of((Supplier) AllBlocks.ENCASED_FAN::asStack)
+                        List.of(fanStackSupplier, catalystStackSupplier)
                 ),
                 catalystBlock.defaultBlockState()
         );
@@ -130,10 +133,13 @@ public class ImmersiveEngineeringJeiCategories {
                 FanRecipe.class
         );
 
+        Supplier<ItemStack> catalystStackSupplier = () -> new ItemStack(catalystFluid.getBucket());
+        Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
+
         return new ImmersiveEngineeringFanProcessingCategory(
                 new CreateRecipeCategory.Info(
                         jeiType,
-                        Component.translatable("create_more_catalysts.recipe." + name),
+                        Component.translatable("create_more_catalysts.recipe.immersiveengineering." + name),
                         new EmptyBackground(178, 72),
                         new DoubleItemIcon(() -> new ItemStack(AllItems.PROPELLER.get()), () -> new ItemStack(catalystFluid.getBucket())),
                         (() -> {
@@ -141,7 +147,7 @@ public class ImmersiveEngineeringJeiCategories {
                             CreateJEI.consumeTypedRecipes(recipe -> recipes.add((FanRecipe) recipe), recipeType.getType());
                             return recipes;
                         }),
-                        List.of((Supplier) AllBlocks.ENCASED_FAN::asStack)
+                        List.of(fanStackSupplier, catalystStackSupplier)
                 ),
                 catalystFluid.defaultFluidState().createLegacyBlock()
         );

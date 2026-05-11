@@ -118,6 +118,9 @@ public final class FanJeiCategories {
                 FanRecipe.class
         );
 
+        Supplier<ItemStack> catalystStackSupplier = () -> new ItemStack(catalystBlock);
+        Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
+
         return new FanProcessingCategory(
                 new CreateRecipeCategory.Info(
                         jeiType,
@@ -129,7 +132,7 @@ public final class FanJeiCategories {
                             CreateJEI.consumeTypedRecipes(recipe -> recipes.add((FanRecipe) recipe), recipeType.getType());
                             return recipes;
                         },
-                        List.of((Supplier) AllBlocks.ENCASED_FAN::asStack)
+                        List.of(fanStackSupplier, catalystStackSupplier)
                 ),
                 catalystBlock.defaultBlockState()
         );
@@ -152,6 +155,9 @@ public final class FanJeiCategories {
                 FanRecipe.class
         );
 
+        Supplier<ItemStack> catalystStackSupplier = () -> new ItemStack(catalystFluid.getBucket());
+        Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
+
         return new FanProcessingCategory(
                 new CreateRecipeCategory.Info(
                         jeiType,
@@ -163,7 +169,7 @@ public final class FanJeiCategories {
                             CreateJEI.consumeTypedRecipes(recipe -> recipes.add((FanRecipe) recipe), recipeType.getType());
                             return recipes;
                         },
-                        List.of((Supplier) AllBlocks.ENCASED_FAN::asStack)
+                        List.of(fanStackSupplier, catalystStackSupplier)
                 ),
                 catalystFluid.defaultFluidState().createLegacyBlock()
         );
@@ -186,6 +192,9 @@ public final class FanJeiCategories {
                 FanRecipe.class
         );
 
+        Supplier<ItemStack> catalystStackSupplier = () -> new ItemStack(catalystBlock);
+        Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
+
         return new FanProcessingCategoryWithHead(
                 new CreateRecipeCategory.Info(
                         jeiType,
@@ -197,7 +206,7 @@ public final class FanJeiCategories {
                             CreateJEI.consumeTypedRecipes(recipe -> recipes.add((FanRecipe) recipe), recipeType.getType());
                             return recipes;
                         }),
-                        List.of((Supplier) AllBlocks.ENCASED_FAN::asStack)
+                        List.of(fanStackSupplier, catalystStackSupplier)
                 ),
                 catalystBlock.defaultBlockState()
         );
@@ -218,6 +227,9 @@ public final class FanJeiCategories {
                 FanRecipe.class
         );
 
+        Supplier<ItemStack> catalystStackSupplier = () -> new ItemStack(Blocks.CONDUIT);
+        Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
+
         return new FanProcessingCategoryWithConduit(
                 new CreateRecipeCategory.Info(
                         jeiType,
@@ -229,7 +241,7 @@ public final class FanJeiCategories {
                             CreateJEI.consumeTypedRecipes(recipe -> recipes.add((FanRecipe) recipe), recipeType.getType());
                             return recipes;
                         }),
-                        List.of((Supplier) AllBlocks.ENCASED_FAN::asStack)
+                        List.of(fanStackSupplier, catalystStackSupplier)
                 )
         );
     }
