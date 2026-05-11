@@ -5,27 +5,34 @@ import com.chinaex123.create_more_catalysts.data.recipe.FanRecipe;
 import com.chinaex123.create_more_catalysts.init.integration.ImmersiveEngineering.ImmersiveEngineeringFanRecipeType;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
+import com.simibubi.create.compat.jei.DoubleItemIcon;
+import com.simibubi.create.compat.jei.EmptyBackground;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.jei.category.ProcessingViaFanCategory;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
+import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.createmod.catnip.gui.element.GuiGameElement;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * 沉浸工程联动配方类别管理器：负责注册和管理 ImmersiveEngineering 联动的鼓风机加工 JEI 配方类别
  */
-
 public class ImmersiveEngineeringJeiCategories {
 
     private final List<CreateRecipeCategory<?>> categories = new ArrayList<>();
@@ -61,7 +68,7 @@ public class ImmersiveEngineeringJeiCategories {
      * @param catalystFluid 催化剂流体
      */
     public void addFluidCategory(String name, ImmersiveEngineeringFanRecipeType.RecipeTypeEntry recipeType, Fluid catalystFluid) {
-        categories.add(buildImmersiveEngineeringFanCategoryFluid(name, recipeType, catalystFluid, builder -> {}));
+        categories.add(createImmersiveEngineeringFanCategoryFluid(name, recipeType, catalystFluid));
     }
 
     /**
@@ -71,85 +78,101 @@ public class ImmersiveEngineeringJeiCategories {
      * @param catalystBlock 催化剂方块
      */
     public void addBlockCategory(String name, ImmersiveEngineeringFanRecipeType.RecipeTypeEntry recipeType, Block catalystBlock) {
-        categories.add(buildImmersiveEngineeringFanCategory(name, recipeType, catalystBlock, builder -> {}));
+        categories.add(createImmersiveEngineeringFanCategory(name, recipeType, catalystBlock.defaultBlockState()));
     }
 
     /**
-     * 构建通用机械鼓风机加工配方类别（方块催化剂）
+     * 创建沉浸工程鼓风机加工配方类别（方块催化剂）
      * @param name 类别名称标识
      * @param recipeType 配方类型入口
-     * @param catalystBlock 催化剂方块
-     * @param config 额外的配置回调
+     * @param catalystState 催化剂方块状态
      * @return 构建完成的配方类别实例
      */
-    private static CreateRecipeCategory<FanRecipe> buildImmersiveEngineeringFanCategory(
-            String name,
-            ImmersiveEngineeringFanRecipeType.RecipeTypeEntry recipeType,
-            Block catalystBlock,
-            Consumer<CreateRecipeCategory.Builder<FanRecipe>> config) {
-        return buildCategory(
-                FanRecipe.class,
-                name,
-                info -> new ImmersiveEngineeringJeiCategories.ImmersiveEngineeringFanProcessingCategory(info, catalystBlock.defaultBlockState()),
-                builder -> {
-                    builder
-                            .addTypedRecipes(recipeType)
-                            .catalystStack(AllBlocks.ENCASED_FAN::asStack)
-                            .doubleItemIcon(AllItems.PROPELLER.get(), catalystBlock)
-                            .emptyBackground(178, 72);
-                    config.accept(builder);
-                }
-        );
+    private static CreateRecipeCategory<FanRecipe> createImmersiveEngineeringFanCategory(String name, ImmersiveEngineeringFanRecipeType.RecipeTypeEntry recipeType, BlockState catalystState) {
+        return new ImmersiveEngineeringFanProcessingCategory(createImmersiveEngineeringInfo(name, recipeType, catalystState.getBlock().asItem()), catalystState);
     }
 
     /**
-     * 构建通用机械鼓风机加工配方类别（流体催化剂）
+     * 创建沉浸工程鼓风机加工配方类别（流体催化剂）
      * @param name 类别名称标识
      * @param recipeType 配方类型入口
      * @param catalystFluid 催化剂流体
-     * @param config 额外的配置回调
      * @return 构建完成的配方类别实例
      */
-    private static CreateRecipeCategory<FanRecipe> buildImmersiveEngineeringFanCategoryFluid(
-            String name,
-            ImmersiveEngineeringFanRecipeType.RecipeTypeEntry recipeType,
-            Fluid catalystFluid,
-            Consumer<CreateRecipeCategory.Builder<FanRecipe>> config) {
-        return buildCategory(
-                FanRecipe.class,
-                name,
-                info -> new ImmersiveEngineeringJeiCategories.ImmersiveEngineeringFanProcessingCategory(info, catalystFluid.defaultFluidState().createLegacyBlock()),
-                builder -> {
-                    builder
-                            .addTypedRecipes(recipeType)
-                            .catalystStack(AllBlocks.ENCASED_FAN::asStack)
-                            .doubleItemIcon(AllItems.PROPELLER.get(), catalystFluid.getBucket())
-                            .emptyBackground(178, 72);
-                    config.accept(builder);
-                }
+    private static CreateRecipeCategory<FanRecipe> createImmersiveEngineeringFanCategoryFluid(String name, ImmersiveEngineeringFanRecipeType.RecipeTypeEntry recipeType, Fluid catalystFluid) {
+        return new ImmersiveEngineeringFanProcessingCategory(createImmersiveEngineeringInfoFluid(name, recipeType, catalystFluid), catalystFluid.defaultFluidState().createLegacyBlock());
+    }
+
+    /**
+     * 创建 JEI Info 对象（方块催化剂专用）
+     * @param name 类别名称
+     * @param recipeType 配方类型入口
+     * @param catalystItem 催化剂物品
+     * @return Info 对象
+     */
+    private static CreateRecipeCategory.Info<FanRecipe> createImmersiveEngineeringInfo(String name, ImmersiveEngineeringFanRecipeType.RecipeTypeEntry recipeType, net.minecraft.world.level.ItemLike catalystItem) {
+        Component title = Component.translatable("create_more_catalysts.recipe.immersiveengineering." + name);
+        IDrawable background = new EmptyBackground(178, 72);
+        IDrawable icon = new DoubleItemIcon(
+                AllItems.PROPELLER::asStack,
+                () -> catalystItem.asItem().getDefaultInstance()
+        );
+        Supplier<ItemStack> catalystStackSupplier = () -> catalystItem.asItem().getDefaultInstance();
+        Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
+
+        RecipeType<RecipeHolder<FanRecipe>> type = RecipeType.createRecipeHolderType(CreateMoreCatalysts.id("immersiveengineering_" + name));
+
+        return new CreateRecipeCategory.Info<>(
+                type,
+                title,
+                background,
+                icon,
+                () -> {
+                    if (Minecraft.getInstance().level != null) {
+                        return Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(recipeType.getType());
+                    }
+                    return java.util.List.of();
+                },
+                List.of(fanStackSupplier, catalystStackSupplier)
         );
     }
 
     /**
-     * 通用配方类别构建方法
-     * @param recipeClass 配方类类型
+     * 创建 JEI Info 对象（流体催化剂专用）
      * @param name 类别名称
-     * @param factory 类别工厂方法
-     * @param config 配置回调
-     * @return 构建完成的配方类别
+     * @param recipeType 配方类型入口
+     * @param catalystFluid 催化剂流体
+     * @return Info 对象
      */
-    private static <T extends Recipe<?>> CreateRecipeCategory<T> buildCategory(
-            Class<T> recipeClass,
-            String name,
-            CreateRecipeCategory.Factory<T> factory,
-            Consumer<CreateRecipeCategory.Builder<T>> config) {
-        CreateRecipeCategory.Builder<T> builder = new CreateRecipeCategory.Builder<>(recipeClass);
-        config.accept(builder);
-        return builder.build(CreateMoreCatalysts.id(name), factory);
+    private static CreateRecipeCategory.Info<FanRecipe> createImmersiveEngineeringInfoFluid(String name, ImmersiveEngineeringFanRecipeType.RecipeTypeEntry recipeType, Fluid catalystFluid) {
+        Component title = Component.translatable("create_more_catalysts.recipe.immersiveengineering." + name);
+        IDrawable background = new EmptyBackground(178, 72);
+        IDrawable icon = new DoubleItemIcon(
+                AllItems.PROPELLER::asStack,
+                () -> catalystFluid.getBucket().getDefaultInstance()
+        );
+        Supplier<ItemStack> catalystStackSupplier = () -> catalystFluid.getBucket().getDefaultInstance();
+        Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
+
+        RecipeType<RecipeHolder<FanRecipe>> type = RecipeType.createRecipeHolderType(CreateMoreCatalysts.id("immersiveengineering_" + name));
+
+        return new CreateRecipeCategory.Info<>(
+                type,
+                title,
+                background,
+                icon,
+                () -> {
+                    if (Minecraft.getInstance().level != null) {
+                        return Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(recipeType.getType());
+                    }
+                    return java.util.List.of();
+                },
+                List.of(fanStackSupplier, catalystStackSupplier)
+        );
     }
 
     /**
-     * 通用机械鼓风机加工配方渲染类：负责渲染催化剂方块
+     * 沉浸工程鼓风机加工配方渲染类：负责渲染催化剂方块
      */
     private static final class ImmersiveEngineeringFanProcessingCategory extends ProcessingViaFanCategory.MultiOutput<FanRecipe> {
 

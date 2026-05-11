@@ -6,16 +6,24 @@ import com.chinaex123.create_more_catalysts.data.recipe.FanRecipe;
 import com.chinaex123.create_more_catalysts.init.FanRecipeType;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
+import com.simibubi.create.compat.jei.DoubleItemIcon;
+import com.simibubi.create.compat.jei.EmptyBackground;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.jei.category.ProcessingViaFanCategory;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
+import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.createmod.catnip.gui.element.GuiGameElement;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.SkullBlockEntity;
@@ -24,7 +32,7 @@ import net.minecraft.world.level.material.Fluid;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * 鼓风机配方类别管理器：负责注册和管理所有鼓风机加工类型的 JEI 配方类别
@@ -64,7 +72,7 @@ public final class FanJeiCategories {
      * @param catalystBlock 催化剂方块
      */
     public void addBlockCategory(String name, FanRecipeType.RecipeTypeEntry recipeType, Block catalystBlock) {
-        categories.add(buildFanCategory(name, recipeType, catalystBlock, builder -> {}));
+        categories.add(createFanCategory(name, recipeType, catalystBlock.defaultBlockState()));
     }
 
     /**
@@ -74,7 +82,7 @@ public final class FanJeiCategories {
      * @param catalystFluid 催化剂流体
      */
     public void addFluidCategory(String name, FanRecipeType.RecipeTypeEntry recipeType, Fluid catalystFluid) {
-        categories.add(buildFanCategory(name, recipeType, catalystFluid, builder -> {}));
+        categories.add(createFanCategoryFluid(name, recipeType, catalystFluid));
     }
 
     /**
@@ -84,7 +92,7 @@ public final class FanJeiCategories {
      * @param catalystBlock 催化剂头颅方块
      */
     public void addHeadCategory(String name, FanRecipeType.RecipeTypeEntry recipeType, Block catalystBlock) {
-        categories.add(buildFanCategoryWithHead(name, recipeType, catalystBlock, builder -> {}));
+        categories.add(createFanCategoryWithHead(name, recipeType, catalystBlock.defaultBlockState()));
     }
 
     /**
@@ -93,135 +101,113 @@ public final class FanJeiCategories {
      * @param recipeType 配方类型入口
      */
     public void addConduitCategory(String name, FanRecipeType.RecipeTypeEntry recipeType) {
-        categories.add(buildFanCategoryWithConduit(name, recipeType, builder -> {}));
+        categories.add(createFanCategoryWithConduit(name, recipeType));
     }
 
     /**
-     * 构建鼓风机加工配方类别（方块催化剂）
+     * 创建鼓风机加工配方类别（方块/流体催化剂）
      * @param name 类别名称标识
      * @param recipeType 配方类型入口
-     * @param catalystBlock 催化剂方块
-     * @param config 额外的配置回调
+     * @param catalystState 催化剂方块状态
      * @return 构建完成的配方类别实例
      */
-    private static CreateRecipeCategory<FanRecipe> buildFanCategory(
-            String name,
-            FanRecipeType.RecipeTypeEntry recipeType,
-            Block catalystBlock,
-            Consumer<CreateRecipeCategory.Builder<FanRecipe>> config) {
-        return buildCategory(
-                FanRecipe.class,
-                name,
-                info -> new FanProcessingCategory(info, catalystBlock.defaultBlockState()),
-                builder -> {
-                    builder
-                            .addTypedRecipes(recipeType)
-                            .catalystStack(AllBlocks.ENCASED_FAN::asStack)
-                            .doubleItemIcon(AllItems.PROPELLER.get(), catalystBlock)
-                            .emptyBackground(178, 72);
-                    config.accept(builder);
-                }
-        );
+    private static CreateRecipeCategory<FanRecipe> createFanCategory(String name, FanRecipeType.RecipeTypeEntry recipeType, BlockState catalystState) {
+        return new FanProcessingCategory(createInfo(name, recipeType, catalystState.getBlock().asItem()), catalystState);
     }
 
     /**
-     * 构建鼓风机加工配方类别（流体催化剂）
+     * 创建鼓风机加工配方类别（流体催化剂）
      * @param name 类别名称标识
      * @param recipeType 配方类型入口
      * @param catalystFluid 催化剂流体
-     * @param config 额外的配置回调
      * @return 构建完成的配方类别实例
      */
-    private static CreateRecipeCategory<FanRecipe> buildFanCategory(
-            String name,
-            FanRecipeType.RecipeTypeEntry recipeType,
-            Fluid catalystFluid,
-            Consumer<CreateRecipeCategory.Builder<FanRecipe>> config) {
-        return buildCategory(
-                FanRecipe.class,
-                name,
-                info -> new FanProcessingCategory(info, catalystFluid.defaultFluidState().createLegacyBlock()),
-                builder -> {
-                    builder
-                            .addTypedRecipes(recipeType)
-                            .catalystStack(AllBlocks.ENCASED_FAN::asStack)
-                            .doubleItemIcon(AllItems.PROPELLER.get(), catalystFluid.getBucket())
-                            .emptyBackground(178, 72);
-                    config.accept(builder);
-                }
-        );
+    private static CreateRecipeCategory<FanRecipe> createFanCategoryFluid(String name, FanRecipeType.RecipeTypeEntry recipeType, Fluid catalystFluid) {
+        return new FanProcessingCategory(createInfoFluid(name, recipeType, catalystFluid), catalystFluid.defaultFluidState().createLegacyBlock());
     }
 
     /**
-     * 构建鼓风机加工配方类别（头颅催化剂）
+     * 创建鼓风机加工配方类别（头颅催化剂）
      * @param name 类别名称标识
      * @param recipeType 配方类型入口
-     * @param catalystBlock 催化剂头颅方块
-     * @param config 额外的配置回调
+     * @param catalystState 催化剂头颅方块状态
      * @return 构建完成的配方类别实例
      */
-    private static CreateRecipeCategory<FanRecipe> buildFanCategoryWithHead(
-            String name,
-            FanRecipeType.RecipeTypeEntry recipeType,
-            Block catalystBlock,
-            Consumer<CreateRecipeCategory.Builder<FanRecipe>> config) {
-        return buildCategory(
-                FanRecipe.class,
-                name,
-                info -> new FanProcessingCategoryWithHead(info, catalystBlock.defaultBlockState()),
-                builder -> {
-                    builder
-                            .addTypedRecipes(recipeType)
-                            .catalystStack(AllBlocks.ENCASED_FAN::asStack)
-                            .doubleItemIcon(AllItems.PROPELLER.get(), catalystBlock)
-                            .emptyBackground(178, 72);
-                    config.accept(builder);
-                }
-        );
+    private static CreateRecipeCategory<FanRecipe> createFanCategoryWithHead(String name, FanRecipeType.RecipeTypeEntry recipeType, BlockState catalystState) {
+        return new FanProcessingCategoryWithHead(createInfo(name, recipeType, catalystState.getBlock().asItem()), catalystState);
     }
 
     /**
-     * 构建鼓风机加工配方类别（潮涌核心催化剂）
+     * 创建鼓风机加工配方类别（潮涌核心催化剂）
      * @param name 类别名称标识
      * @param recipeType 配方类型入口
-     * @param config 额外的配置回调
      * @return 构建完成的配方类别实例
      */
-    private static CreateRecipeCategory<FanRecipe> buildFanCategoryWithConduit(
-            String name,
-            FanRecipeType.RecipeTypeEntry recipeType,
-            Consumer<CreateRecipeCategory.Builder<FanRecipe>> config) {
-        return buildCategory(
-                FanRecipe.class,
-                name,
-                FanProcessingCategoryWithConduit::new,
-                builder -> {
-                    builder
-                            .addTypedRecipes(recipeType)
-                            .catalystStack(AllBlocks.ENCASED_FAN::asStack)
-                            .doubleItemIcon(AllItems.PROPELLER.get(), Blocks.CONDUIT)
-                            .emptyBackground(178, 72);
-                    config.accept(builder);
-                }
-        );
+    private static CreateRecipeCategory<FanRecipe> createFanCategoryWithConduit(String name, FanRecipeType.RecipeTypeEntry recipeType) {
+        return new FanProcessingCategoryWithConduit(createInfo(name, recipeType, Blocks.CONDUIT.asItem()));
     }
 
     /**
-     * 通用配方类别构建方法
-     * @param recipeClass 配方类类型
+     * 创建 JEI Info 对象，包含催化剂堆栈列表以支持 U 键查询
      * @param name 类别名称
-     * @param factory 类别工厂方法
-     * @param config 配置回调
-     * @return 构建完成的配方类别
+     * @param recipeType 配方类型入口
+     * @param catalystItem 催化剂物品
+     * @return Info 对象
      */
-    private static <T extends Recipe<?>> CreateRecipeCategory<T> buildCategory(
-            Class<T> recipeClass,
-            String name,
-            CreateRecipeCategory.Factory<T> factory,
-            Consumer<CreateRecipeCategory.Builder<T>> config) {
-        CreateRecipeCategory.Builder<T> builder = new CreateRecipeCategory.Builder<>(recipeClass);
-        config.accept(builder);
-        return builder.build(CreateMoreCatalysts.id(name), factory);
+    private static CreateRecipeCategory.Info<FanRecipe> createInfo(String name, FanRecipeType.RecipeTypeEntry recipeType, net.minecraft.world.level.ItemLike catalystItem) {
+        Component title = Component.translatable("create_more_catalysts.recipe." + name);
+        IDrawable background = new EmptyBackground(178, 72);
+        IDrawable icon = new DoubleItemIcon(
+                AllItems.PROPELLER::asStack,
+                () -> catalystItem.asItem().getDefaultInstance()
+        );
+        Supplier<ItemStack> catalystStackSupplier = () -> catalystItem.asItem().getDefaultInstance();
+        Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
+
+        RecipeType<RecipeHolder<FanRecipe>> type = RecipeType.createRecipeHolderType(CreateMoreCatalysts.id(name));
+
+        return new CreateRecipeCategory.Info<>(
+                type,
+                title,
+                background,
+                icon,
+                () -> Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(recipeType.getType()),
+                List.of(fanStackSupplier, catalystStackSupplier)
+        );
+    }
+
+    /**
+     * 创建 JEI Info 对象（流体催化剂专用）
+     * @param name 类别名称
+     * @param recipeType 配方类型入口
+     * @param catalystFluid 催化剂流体
+     * @return Info 对象
+     */
+    private static CreateRecipeCategory.Info<FanRecipe> createInfoFluid(String name, FanRecipeType.RecipeTypeEntry recipeType, Fluid catalystFluid) {
+        Component title = Component.translatable("create_more_catalysts.recipe." + name);
+        IDrawable background = new EmptyBackground(178, 72);
+        IDrawable icon = new DoubleItemIcon(
+                AllItems.PROPELLER::asStack,
+                () -> catalystFluid.getBucket().getDefaultInstance()
+        );
+        Supplier<ItemStack> catalystStackSupplier = () -> catalystFluid.getBucket().getDefaultInstance();
+        Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
+
+        RecipeType<RecipeHolder<FanRecipe>> type = RecipeType.createRecipeHolderType(CreateMoreCatalysts.id(name));
+
+        return new CreateRecipeCategory.Info<>(
+                type,
+                title,
+                background,
+                icon,
+                () -> {
+                    if (Minecraft.getInstance().level != null) {
+                        return Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(recipeType.getType());
+                    }
+                    return java.util.List.of();
+                },
+                List.of(fanStackSupplier, catalystStackSupplier)
+        );
     }
 
     /**
