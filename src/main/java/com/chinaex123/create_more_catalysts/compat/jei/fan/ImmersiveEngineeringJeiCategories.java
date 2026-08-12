@@ -24,24 +24,23 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Supplier;
 
 /**
  * 沉浸工程联动配方类别管理器：负责注册和管理 ImmersiveEngineering 联动的鼓风机加工 JEI 配方类别
  */
-
 public class ImmersiveEngineeringJeiCategories {
 
-    private final List<CreateRecipeCategory<?>> categories = new ArrayList<>();
+    // 使用 Map 确保每个 UID 只对应一个类别
+    private final Map<String, CreateRecipeCategory<?>> categories = new LinkedHashMap<>();
 
     /**
      * 注册所有配方类别到 JEI
      * @param registration JEI 类别注册器
      */
     public void registerCategories(IRecipeCategoryRegistration registration) {
-        registration.addRecipeCategories(categories.toArray(CreateRecipeCategory[]::new));
+        registration.addRecipeCategories(categories.values().toArray(CreateRecipeCategory[]::new));
     }
 
     /**
@@ -49,7 +48,7 @@ public class ImmersiveEngineeringJeiCategories {
      * @param registration JEI 配方注册器
      */
     public void registerRecipes(IRecipeRegistration registration) {
-        categories.forEach(cat -> cat.registerRecipes(registration));
+        categories.values().forEach(cat -> cat.registerRecipes(registration));
     }
 
     /**
@@ -57,7 +56,7 @@ public class ImmersiveEngineeringJeiCategories {
      * @param registration JEI 催化剂注册器
      */
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        categories.forEach(cat -> cat.registerCatalysts(registration));
+        categories.values().forEach(cat -> cat.registerCatalysts(registration));
     }
 
     /**
@@ -67,7 +66,10 @@ public class ImmersiveEngineeringJeiCategories {
      * @param catalystFluid 催化剂流体
      */
     public void addFluidCategory(String name, ImmersiveEngineeringFanRecipeType.RecipeTypeEntry recipeType, Fluid catalystFluid) {
-        categories.add(buildImmersiveEngineeringFanCategoryFluid(name, recipeType, catalystFluid));
+        String key = "immersiveengineering_" + name;
+        if (!categories.containsKey(key)) {
+            categories.put(key, buildImmersiveEngineeringFanCategoryFluid(name, recipeType, catalystFluid));
+        }
     }
 
     /**
@@ -77,11 +79,22 @@ public class ImmersiveEngineeringJeiCategories {
      * @param catalystBlock 催化剂方块
      */
     public void addBlockCategory(String name, ImmersiveEngineeringFanRecipeType.RecipeTypeEntry recipeType, Block catalystBlock) {
-        categories.add(buildImmersiveEngineeringFanCategory(name, recipeType, catalystBlock));
+        String key = "immersiveengineering_" + name;
+        if (!categories.containsKey(key)) {
+            categories.put(key, buildImmersiveEngineeringFanCategory(name, recipeType, catalystBlock));
+        }
+    }
+
+    // RecipeType 缓存
+    private static final Map<String, RecipeType<FanRecipe>> RECIPE_TYPES = new LinkedHashMap<>();
+
+    private static RecipeType<FanRecipe> getOrCreateRecipeType(String name) {
+        return RECIPE_TYPES.computeIfAbsent(name,
+                k -> new RecipeType<>(CreateMoreCatalysts.id(k), FanRecipe.class));
     }
 
     /**
-     * 构建通用机械鼓风机加工配方类别（方块催化剂）
+     * 构建沉浸工程鼓风机加工配方类别（方块催化剂）
      * @param name 类别名称标识
      * @param recipeType 配方类型入口
      * @param catalystBlock 催化剂方块
@@ -92,10 +105,7 @@ public class ImmersiveEngineeringJeiCategories {
             String name,
             ImmersiveEngineeringFanRecipeType.RecipeTypeEntry recipeType,
             Block catalystBlock) {
-        RecipeType<FanRecipe> jeiType = new RecipeType<>(
-                CreateMoreCatalysts.id(name),
-                FanRecipe.class
-        );
+        RecipeType<FanRecipe> jeiType = getOrCreateRecipeType("immersiveengineering_" + name);
 
         Supplier<ItemStack> catalystStackSupplier = () -> new ItemStack(catalystBlock);
         Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
@@ -118,7 +128,7 @@ public class ImmersiveEngineeringJeiCategories {
     }
 
     /**
-     * 构建通用机械鼓风机加工配方类别（流体催化剂）
+     * 构建沉浸工程鼓风机加工配方类别（流体催化剂）
      * @param name 类别名称标识
      * @param recipeType 配方类型入口
      * @param catalystFluid 催化剂流体
@@ -129,10 +139,7 @@ public class ImmersiveEngineeringJeiCategories {
             String name,
             ImmersiveEngineeringFanRecipeType.RecipeTypeEntry recipeType,
             Fluid catalystFluid) {
-        RecipeType<FanRecipe> jeiType = new RecipeType<>(
-                CreateMoreCatalysts.id(name),
-                FanRecipe.class
-        );
+        RecipeType<FanRecipe> jeiType = getOrCreateRecipeType("immersiveengineering_" + name);
 
         Supplier<ItemStack> catalystStackSupplier = () -> new ItemStack(catalystFluid.getBucket());
         Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
@@ -155,7 +162,7 @@ public class ImmersiveEngineeringJeiCategories {
     }
 
     /**
-     * 通用机械鼓风机加工配方渲染类：负责渲染催化剂方块
+     * 沉浸工程鼓风机加工配方渲染类：负责渲染催化剂方块
      */
     private static final class ImmersiveEngineeringFanProcessingCategory extends ProcessingViaFanCategory.MultiOutput<FanRecipe> {
 

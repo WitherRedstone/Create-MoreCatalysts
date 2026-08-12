@@ -28,8 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Supplier;
 
 /**
@@ -37,14 +36,15 @@ import java.util.function.Supplier;
  */
 public final class FanJeiCategories {
 
-    private final List<CreateRecipeCategory<?>> categories = new ArrayList<>();
+    // 使用 Map 确保每个 UID 只对应一个类别
+    private final Map<String, CreateRecipeCategory<?>> categories = new LinkedHashMap<>();
 
     /**
      * 注册所有配方类别到 JEI
      * @param registration JEI 类别注册器
      */
     public void registerCategories(IRecipeCategoryRegistration registration) {
-        registration.addRecipeCategories(categories.toArray(CreateRecipeCategory[]::new));
+        registration.addRecipeCategories(categories.values().toArray(CreateRecipeCategory[]::new));
     }
 
     /**
@@ -52,7 +52,7 @@ public final class FanJeiCategories {
      * @param registration JEI 配方注册器
      */
     public void registerRecipes(IRecipeRegistration registration) {
-        categories.forEach(cat -> cat.registerRecipes(registration));
+        categories.values().forEach(cat -> cat.registerRecipes(registration));
     }
 
     /**
@@ -60,7 +60,7 @@ public final class FanJeiCategories {
      * @param registration JEI 催化剂注册器
      */
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        categories.forEach(cat -> cat.registerCatalysts(registration));
+        categories.values().forEach(cat -> cat.registerCatalysts(registration));
     }
 
     /**
@@ -70,7 +70,9 @@ public final class FanJeiCategories {
      * @param catalystBlock 催化剂方块
      */
     public void addBlockCategory(String name, FanRecipeType.RecipeTypeEntry recipeType, Block catalystBlock) {
-        categories.add(buildFanCategory(name, recipeType, catalystBlock));
+        if (!categories.containsKey(name)) {
+            categories.put(name, buildFanCategory(name, recipeType, catalystBlock));
+        }
     }
 
     /**
@@ -80,7 +82,9 @@ public final class FanJeiCategories {
      * @param catalystFluid 催化剂流体
      */
     public void addFluidCategory(String name, FanRecipeType.RecipeTypeEntry recipeType, Fluid catalystFluid) {
-        categories.add(buildFanCategory(name, recipeType, catalystFluid));
+        if (!categories.containsKey(name)) {
+            categories.put(name, buildFanCategory(name, recipeType, catalystFluid));
+        }
     }
 
     /**
@@ -90,7 +94,9 @@ public final class FanJeiCategories {
      * @param catalystBlock 催化剂头颅方块
      */
     public void addHeadCategory(String name, FanRecipeType.RecipeTypeEntry recipeType, Block catalystBlock) {
-        categories.add(buildFanCategoryWithHead(name, recipeType, catalystBlock));
+        if (!categories.containsKey(name)) {
+            categories.put(name, buildFanCategoryWithHead(name, recipeType, catalystBlock));
+        }
     }
 
     /**
@@ -99,7 +105,17 @@ public final class FanJeiCategories {
      * @param recipeType 配方类型入口
      */
     public void addConduitCategory(String name, FanRecipeType.RecipeTypeEntry recipeType) {
-        categories.add(buildFanCategoryWithConduit(name, recipeType));
+        if (!categories.containsKey(name)) {
+            categories.put(name, buildFanCategoryWithConduit(name, recipeType));
+        }
+    }
+
+    // RecipeType 缓存
+    private static final Map<String, RecipeType<FanRecipe>> RECIPE_TYPES = new LinkedHashMap<>();
+
+    private static RecipeType<FanRecipe> getOrCreateRecipeType(String name) {
+        return RECIPE_TYPES.computeIfAbsent(name,
+                k -> new RecipeType<>(CreateMoreCatalysts.id(k), FanRecipe.class));
     }
 
     /**
@@ -114,10 +130,7 @@ public final class FanJeiCategories {
             String name,
             FanRecipeType.RecipeTypeEntry recipeType,
             Block catalystBlock) {
-        RecipeType<FanRecipe> jeiType = new RecipeType<>(
-                CreateMoreCatalysts.id(name),
-                FanRecipe.class
-        );
+        RecipeType<FanRecipe> jeiType = getOrCreateRecipeType(name);
 
         Supplier<ItemStack> catalystStackSupplier = () -> new ItemStack(catalystBlock);
         Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
@@ -151,10 +164,7 @@ public final class FanJeiCategories {
             String name,
             FanRecipeType.RecipeTypeEntry recipeType,
             Fluid catalystFluid) {
-        RecipeType<FanRecipe> jeiType = new RecipeType<>(
-                CreateMoreCatalysts.id(name),
-                FanRecipe.class
-        );
+        RecipeType<FanRecipe> jeiType = getOrCreateRecipeType(name);
 
         Supplier<ItemStack> catalystStackSupplier = () -> new ItemStack(catalystFluid.getBucket());
         Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
@@ -188,10 +198,7 @@ public final class FanJeiCategories {
             String name,
             FanRecipeType.RecipeTypeEntry recipeType,
             Block catalystBlock) {
-        RecipeType<FanRecipe> jeiType = new RecipeType<>(
-                CreateMoreCatalysts.id(name),
-                FanRecipe.class
-        );
+        RecipeType<FanRecipe> jeiType = getOrCreateRecipeType(name);
 
         Supplier<ItemStack> catalystStackSupplier = () -> new ItemStack(catalystBlock);
         Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
@@ -223,10 +230,7 @@ public final class FanJeiCategories {
     private static CreateRecipeCategory<FanRecipe> buildFanCategoryWithConduit(
             String name,
             FanRecipeType.RecipeTypeEntry recipeType) {
-        RecipeType<FanRecipe> jeiType = new RecipeType<>(
-                CreateMoreCatalysts.id(name),
-                FanRecipe.class
-        );
+        RecipeType<FanRecipe> jeiType = getOrCreateRecipeType(name);
 
         Supplier<ItemStack> catalystStackSupplier = () -> new ItemStack(Blocks.CONDUIT);
         Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
