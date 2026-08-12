@@ -11,7 +11,6 @@ import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.jei.category.ProcessingViaFanCategory;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
@@ -26,8 +25,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 /**
@@ -35,14 +35,15 @@ import java.util.function.Supplier;
  */
 public class AnvilcraftJeiCategories {
 
-    private final List<CreateRecipeCategory<?>> categories = new ArrayList<>();
+    // 使用 Map 确保每个 UID 只对应一个类别
+    private final Map<String, CreateRecipeCategory<?>> categories = new LinkedHashMap<>();
 
     /**
      * 注册所有配方类别到 JEI
      * @param registration JEI 类别注册器
      */
     public void registerCategories(IRecipeCategoryRegistration registration) {
-        registration.addRecipeCategories(categories.toArray(CreateRecipeCategory[]::new));
+        registration.addRecipeCategories(categories.values().toArray(CreateRecipeCategory[]::new));
     }
 
     /**
@@ -50,7 +51,7 @@ public class AnvilcraftJeiCategories {
      * @param registration JEI 配方注册器
      */
     public void registerRecipes(IRecipeRegistration registration) {
-        categories.forEach(cat -> cat.registerRecipes(registration));
+        categories.values().forEach(cat -> cat.registerRecipes(registration));
     }
 
     /**
@@ -58,7 +59,7 @@ public class AnvilcraftJeiCategories {
      * @param registration JEI 催化剂注册器
      */
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        categories.forEach(cat -> cat.registerCatalysts(registration));
+        categories.values().forEach(cat -> cat.registerCatalysts(registration));
     }
 
     /**
@@ -68,7 +69,10 @@ public class AnvilcraftJeiCategories {
      * @param catalystFluid 催化剂流体
      */
     public void addFluidCategory(String name, AnvilcraftFanRecipeType.RecipeTypeEntry recipeType, Fluid catalystFluid) {
-        categories.add(createAnvilcraftFanCategoryFluid(name, recipeType, catalystFluid));
+        String key = "anvilcraft_" + name;
+        if (!categories.containsKey(key)) {
+            categories.put(key, createAnvilcraftFanCategoryFluid(name, recipeType, catalystFluid));
+        }
     }
 
     /**
@@ -78,7 +82,10 @@ public class AnvilcraftJeiCategories {
      * @param catalystBlock 催化剂方块
      */
     public void addBlockCategory(String name, AnvilcraftFanRecipeType.RecipeTypeEntry recipeType, Block catalystBlock) {
-        categories.add(createAnvilcraftFanCategory(name, recipeType, catalystBlock.defaultBlockState()));
+        String key = "anvilcraft_" + name;
+        if (!categories.containsKey(key)) {
+            categories.put(key, createAnvilcraftFanCategory(name, recipeType, catalystBlock.defaultBlockState()));
+        }
     }
 
     /**
@@ -103,6 +110,14 @@ public class AnvilcraftJeiCategories {
         return new AnvilcraftFanProcessingCategory(createAnvilcraftInfoFluid(name, recipeType, catalystFluid), catalystFluid.defaultFluidState().createLegacyBlock());
     }
 
+    // RecipeType 缓存
+    private static final Map<String, RecipeType<RecipeHolder<FanRecipe>>> RECIPE_TYPES = new LinkedHashMap<>();
+
+    private static RecipeType<RecipeHolder<FanRecipe>> getOrCreateRecipeType(String name) {
+        return RECIPE_TYPES.computeIfAbsent(name,
+                k -> RecipeType.createRecipeHolderType(CreateMoreCatalysts.id(k)));
+    }
+
     /**
      * 创建 JEI Info 对象（方块催化剂专用）
      * @param name 类别名称
@@ -120,7 +135,7 @@ public class AnvilcraftJeiCategories {
         Supplier<ItemStack> catalystStackSupplier = () -> catalystItem.asItem().getDefaultInstance();
         Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
 
-        RecipeType<RecipeHolder<FanRecipe>> type = RecipeType.createRecipeHolderType(CreateMoreCatalysts.id("anvilcraft_" + name));
+        RecipeType<RecipeHolder<FanRecipe>> type = getOrCreateRecipeType("anvilcraft_" + name);
 
         return new CreateRecipeCategory.Info<>(
                 type,
@@ -154,7 +169,7 @@ public class AnvilcraftJeiCategories {
         Supplier<ItemStack> catalystStackSupplier = () -> catalystFluid.getBucket().getDefaultInstance();
         Supplier<ItemStack> fanStackSupplier = AllBlocks.ENCASED_FAN::asStack;
 
-        RecipeType<RecipeHolder<FanRecipe>> type = RecipeType.createRecipeHolderType(CreateMoreCatalysts.id("anvilcraft_" + name));
+        RecipeType<RecipeHolder<FanRecipe>> type = getOrCreateRecipeType("anvilcraft_" + name);
 
         return new CreateRecipeCategory.Info<>(
                 type,
